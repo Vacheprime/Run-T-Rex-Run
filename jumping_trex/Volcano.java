@@ -6,14 +6,14 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author Shaheryar Anwar and Danat Ali Muradov 
  * @version 1
  */
-public class volcano extends World
+public class Volcano extends World
 {
     private final int LAVA_LOWER_LIMIT = 350;
     /**
      * Constructor for objects of class volcano.
      * 
      */
-    public volcano()
+    public Volcano()
     {    
         // Create a new volcano world with 600x400 cells with a cell size of 1x1 pixels.
         super(750, 900, 1, false); 
