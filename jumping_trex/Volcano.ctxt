@@ -1,7 +1,7 @@
 #BlueJ class context
-comment0.target=volcano
-comment0.text=\n\ Write\ a\ description\ of\ class\ volcano\ here.\n\ \n\ @author\ Shaheryar\ Anwar\ and\ Danat\ Ali\ Muradov\ \n\ @version\ 1\n
+comment0.target=Volcano
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ volcano\ here.\r\n\ \r\n\ @author\ Shaheryar\ Anwar\ and\ Danat\ Ali\ Muradov\ \r\n\ @version\ 1\r\n
 comment1.params=
-comment1.target=volcano()
-comment1.text=\n\ Constructor\ for\ objects\ of\ class\ volcano.\n\ \n
+comment1.target=Volcano()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ volcano.\r\n\ \r\n
 numComments=2
