@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+import java.util.*;
 /**
  * Write a description of class TRex here.
  * 
@@ -52,6 +52,7 @@ public class TRex extends Actor
             // Move to the left by the amount defined in velocity x
             setLocation(getX() - VELOCITY_X, getY());
         }
+        
     }
     
     public void mirrorImage(char side) {
@@ -70,4 +71,14 @@ public class TRex extends Actor
             }
         }
     }
+    
+    public void detectPlatformCollisions() {
+		List<Platform> platformObjects = getWorld().getObjects(Platform.class);
+		
+		for (int i = 0; i < platformObjects.size(); i++) {
+			Platform platform = platformObjects.get(i);
+			
+		}
+		
+	}
 }
