@@ -18,7 +18,17 @@ public class Vector2D
     {
         return y;
     }
-
+    
+    public void setX(double newX) 
+    {
+        x = newX;
+    }
+    
+    public void setY(double newY) 
+    {
+        y = newY;
+    }
+    
     public void negate()
     {
         x = -x;

@@ -14,9 +14,10 @@ public class TRex extends Actor
     private Vector2D acceleration;
     private int height, width;
     
-    // Orientation, moving speed and gravity variables
+    // Orientation, moving speed, jump velocity and gravity variables
     private char facing = 'r';
-    private final int VELOCITY_X = 5;
+    private Vector2D runVelocity = new Vector2D(5, 0);
+    private Vector2D jumpVelocity = new Vector2D(0, 500);
     private static final double GRAVITY = 9.8 * 300; // 300 px = 1 m
     
     public TRex() {
@@ -57,8 +58,9 @@ public class TRex extends Actor
                 facing = 'r';
             }
             
-            // Move to the right by the amount defined in velocity x
-            setLocation(getX() + VELOCITY_X, getY());
+            if (velocity.getX() != 5) {
+                velocity.setX(5);
+            }
         
         // When key a or left arrow is pressed
         } else if (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left")) {
@@ -68,9 +70,17 @@ public class TRex extends Actor
                 facing = 'l';
             }
             
-            // Move to the left by the amount defined in velocity x
-            setLocation(getX() - VELOCITY_X, getY());
+            if (velocity.getX() != -5) {
+                velocity.setX(-5);
+            }
+        
         }
+        
+        // When key w or up arrow is pressed
+        if (Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up") ) {
+            velocity = Vector2D.add(velocity, jumpVelocity); 
+        }
+        
     }
     
     public void mirrorImage(char side) {
@@ -95,7 +105,7 @@ public class TRex extends Actor
     public boolean detectPlatformCollisions() {
         // Get all platforms
         List<Platform> platformObjects = getWorld().getObjects(Platform.class);
-        boolean isColliding = false;
+        boolean collision = false;
         
         // Loop for every platform
         for (int i = 0; i < platformObjects.size(); i++) {
@@ -110,15 +120,17 @@ public class TRex extends Actor
             int minimalYDist = pfHalfHeight + (height / 2);
             
             // The actual distance between the two actors
-            int distX = Math.abs(platform.getX() - getX());
-            int distY = Math.abs(platform.getY() - getY());
+            int distX = platform.getX() - getX();
+            int distY = platform.getY() - getY();
             
-            // Check for allignment on the X axis
-            if (distX <= minimalXDist && distY <= minimalYDist) {
-                isColliding = true;
+            // Check for collisions
+            if (Math.abs(distX) <= minimalXDist && Math.abs(distY) <= minimalYDist) {
+                // If the collision happens from the top side of the platform
+                if (distY > 0) {
+                    collision = true;
             }
         }
-        
-        return isColliding;
     }
+    return collision;
+}
 }
