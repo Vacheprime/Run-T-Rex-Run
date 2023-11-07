@@ -52,6 +52,8 @@ public class TRex extends Actor
     
     public void moveTRex()
     {
+		// Update the position of the T-Rex
+        updatePosition();
         // When key d or right arrow is pressed
         if (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right")) {
             if (facing != 'r') {
@@ -99,8 +101,7 @@ public class TRex extends Actor
             acceleration.setY(GRAVITY);
         }
         
-        // Update the position of the T-Rex
-        updatePosition();
+        
     }
     
     public void mirrorImage(char side)
@@ -124,6 +125,7 @@ public class TRex extends Actor
         }
     }
     
+
     public int detectPlatformCollisions()
     {
         // Get all platforms
