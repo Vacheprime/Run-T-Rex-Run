@@ -9,6 +9,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Volcano extends World
 {
     private final int LAVA_LOWER_LIMIT = 350;
+    
+    private long lastFrameTimeMS;
+    private double timeStepDuration; 
     /**
      * Constructor for objects of class volcano.
      * 
@@ -24,8 +27,28 @@ public class Volcano extends World
         // Set the lava to be at the bottom middle of the screen
         Actor lava = new Lava();
         addObject(lava, getWidth()/2, getHeight() + LAVA_LOWER_LIMIT);
-
+        
         prepare();
+    }
+    
+    public void started()
+    {
+        // Set the initial frame time 
+        lastFrameTimeMS = System.currentTimeMillis();
+    }
+    
+    public void act()
+    {
+        // Update the time step duration
+        timeStepDuration = (System.currentTimeMillis() - lastFrameTimeMS) / 1000.0;
+        
+        // Set the last frame time
+        lastFrameTimeMS = System.currentTimeMillis();
+    }
+    
+    public double getTimeStepDuration()
+    {
+        return timeStepDuration;
     }
     
     /**

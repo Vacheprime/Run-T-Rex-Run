@@ -16,9 +16,9 @@ public class TRex extends Actor
     
     // Orientation, moving speed, jump velocity and gravity variables
     private char facing = 'r';
-    private Vector2D runVelocity = new Vector2D(5, 0);
-    private Vector2D jumpVelocity = new Vector2D(0, 500);
-    private static final double GRAVITY = 9.8 * 300; // 300 px = 1 m
+    private int runVelocity = 150;
+    private Vector2D jumpVelocity = new Vector2D(0, -100);
+    private static final double GRAVITY = 9.8 * 100; // 300 px = 1 m
     
     public TRex() {
         // Scale the T-Rex to 1/4 of its original size
@@ -49,7 +49,8 @@ public class TRex extends Actor
         moveTRex();
     }
     
-    public void moveTRex() {
+    public void moveTRex()
+    {
         // When key d or right arrow is pressed
         if (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right")) {
             if (facing != 'r') {
@@ -59,7 +60,7 @@ public class TRex extends Actor
             }
             
             if (velocity.getX() != 5) {
-                velocity.setX(5);
+                velocity.setX(runVelocity);
             }
         
         // When key a or left arrow is pressed
@@ -71,9 +72,13 @@ public class TRex extends Actor
             }
             
             if (velocity.getX() != -5) {
-                velocity.setX(-5);
+                velocity.setX(-runVelocity);
             }
         
+        } else {
+            if (velocity.getX() != 0) {
+                velocity.setX(0);
+            }
         }
         
         // When key w or up arrow is pressed
@@ -81,9 +86,12 @@ public class TRex extends Actor
             velocity = Vector2D.add(velocity, jumpVelocity); 
         }
         
+        // Update the position of the T-Rex
+        updatePosition();
     }
     
-    public void mirrorImage(char side) {
+    public void mirrorImage(char side)
+    {
         switch (side) {
             case 'h': {
                 // Flip the image horizontally
@@ -102,7 +110,8 @@ public class TRex extends Actor
         }
     }
     
-    public boolean detectPlatformCollisions() {
+    public boolean detectPlatformCollisions()
+    {
         // Get all platforms
         List<Platform> platformObjects = getWorld().getObjects(Platform.class);
         boolean collision = false;
@@ -128,9 +137,34 @@ public class TRex extends Actor
                 // If the collision happens from the top side of the platform
                 if (distY > 0) {
                     collision = true;
+                }
             }
         }
+        
+        return collision;
     }
-    return collision;
-}
+    
+    public void updatePosition()
+    {
+        // Initial position
+        if (position == null)
+        {
+            position = new Point2D(getX(), getY());
+        }
+        
+        // Get time step duration
+        Volcano world = (Volcano) getWorld();
+        double dt = world.getTimeStepDuration();
+        
+        // Update Y velocity
+        Vector2D velocityVariation = Vector2D.multiply(acceleration, dt);
+        velocity = Vector2D.add(velocity, velocityVariation);
+
+        // Update position
+        Vector2D positionVariation = Vector2D.multiply(velocity, dt);
+        position.add(positionVariation);
+        
+        // Set new actor position
+        setLocation((int) position.getX(), (int) position.getY());        
+    }
 }
