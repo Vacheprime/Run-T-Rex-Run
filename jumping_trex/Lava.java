@@ -8,6 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Lava extends Actor
 {
+    private int risingSpeed = 1;
+    private final byte RISE_AT_FRAME = 4;
+    private byte frameCounter = 0;
     public Lava() {
         // Scale the image to be 1.5x bigger
         GreenfootImage img = getImage();
@@ -20,6 +23,12 @@ public class Lava extends Actor
      */
     public void act()
     {
-        // Add your action code here.
+        if (frameCounter == RISE_AT_FRAME)
+        {
+            setLocation(getX(), getY() - risingSpeed);
+            frameCounter = 0;
+        } else {
+            frameCounter++;        
+        }
     }
 }

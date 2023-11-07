@@ -16,9 +16,9 @@ public class TRex extends Actor
     
     // Orientation, moving speed, jump velocity and gravity variables
     private char facing = 'r';
-    private int runVelocity = 150;
-    private Vector2D jumpVelocity = new Vector2D(0, -100);
-    private static final double GRAVITY = 9.8 * 100; // 300 px = 1 m
+    private int runVelocity = 200;
+    private Vector2D jumpVelocity = new Vector2D(0, -350);
+    private static final double GRAVITY = 9.8 * 100; // 100 px = 1 m
     
     public TRex() {
         // Scale the T-Rex to 1/4 of its original size
@@ -31,6 +31,7 @@ public class TRex extends Actor
         velocity = new Vector2D(0,0);
         acceleration = new Vector2D(0, GRAVITY);
         
+        // Set the fields to the width and height of the scaled image
         width = img.getWidth();
         height = img.getHeight();
     }
@@ -82,8 +83,20 @@ public class TRex extends Actor
         }
         
         // When key w or up arrow is pressed
-        if (Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up") ) {
+        if ( (Greenfoot.isKeyDown("w") || Greenfoot.isKeyDown("up") ) && velocity.getY() == 0) {
             velocity = Vector2D.add(velocity, jumpVelocity); 
+        }
+        
+        // Detect collisions on platforms and stop the TRex from falling
+        int toRelocate = detectPlatformCollisions();
+        if (toRelocate != -1)
+        {
+            acceleration.setY(0);
+            velocity.setY(0);
+            position.setY(toRelocate);
+        } else
+        {
+            acceleration.setY(GRAVITY);
         }
         
         // Update the position of the T-Rex
@@ -93,6 +106,7 @@ public class TRex extends Actor
     public void mirrorImage(char side)
     {
         switch (side) {
+            
             case 'h': {
                 // Flip the image horizontally
                 GreenfootImage img = getImage();
@@ -110,11 +124,11 @@ public class TRex extends Actor
         }
     }
     
-    public boolean detectPlatformCollisions()
+    public int detectPlatformCollisions()
     {
         // Get all platforms
         List<Platform> platformObjects = getWorld().getObjects(Platform.class);
-        boolean collision = false;
+        int positionToSurface = -1;
         
         // Loop for every platform
         for (int i = 0; i < platformObjects.size(); i++) {
@@ -125,7 +139,7 @@ public class TRex extends Actor
             int pfHalfHeight = platform.getImage().getHeight() / 2;
             
             // Minimal distance between the two actors so that there is no collision
-            int minimalXDist = pfHalfWidth + (width / 2);
+            int minimalXDist = pfHalfWidth + (width / 4);
             int minimalYDist = pfHalfHeight + (height / 2);
             
             // The actual distance between the two actors
@@ -134,14 +148,13 @@ public class TRex extends Actor
             
             // Check for collisions
             if (Math.abs(distX) <= minimalXDist && Math.abs(distY) <= minimalYDist) {
-                // If the collision happens from the top side of the platform
-                if (distY > 0) {
-                    collision = true;
+                if (velocity.getY() > 0  && (getY() + height / 2) < platform.getY()) {
+                    return platform.getY() - minimalYDist;
                 }
             }
         }
         
-        return collision;
+        return positionToSurface;
     }
     
     public void updatePosition()

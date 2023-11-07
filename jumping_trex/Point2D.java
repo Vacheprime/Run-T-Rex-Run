@@ -9,7 +9,6 @@ public class Point2D
         this.y = y;
     }
 
-    
     public double getX()
     {
         return x;
@@ -18,6 +17,16 @@ public class Point2D
     public double getY()
     {
         return y;
+    }
+    
+    public void setX(double newX)
+    {
+        x = newX;
+    }
+    
+    public void setY(double newY)
+    {
+        y = newY;
     }
     
     public void add(Vector2D v)
