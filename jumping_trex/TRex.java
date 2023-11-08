@@ -51,6 +51,13 @@ public class TRex extends Actor
         }
         // Execute the movements
         moveTRex();
+        // Detect collision with lava
+        if (detectLavaCollision())
+        {
+            System.out.println("yes");
+            getWorld().removeObject(this);
+            changeWorld(new GameOverWorld());
+        }
     }
     
     public void moveTRex()
@@ -167,6 +174,20 @@ public class TRex extends Actor
         return positionToSurface;
     }
     
+    public boolean detectLavaCollision() {
+        
+        int playerOuterBound = getY() + height/2;
+        int currentLavaLevel = getWorld().getObjects(Lava.class).get(0).getLavaLevel();
+        System.out.println(playerOuterBound);
+        
+        if (playerOuterBound >= currentLavaLevel && currentLavaLevel != -1)
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public void updatePosition()
     {
         // Initial position
@@ -204,5 +225,10 @@ public class TRex extends Actor
         nextPosition.add(positionVariation); 
         
         return nextPosition;
+    }
+    
+    public void changeWorld(World world)
+    {
+        Greenfoot.setWorld(world);
     }
 }

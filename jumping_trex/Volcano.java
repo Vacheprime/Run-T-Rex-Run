@@ -19,7 +19,9 @@ public class Volcano extends World
     public Volcano()
     {    
         // Create a new volcano world with 600x400 cells with a cell size of 1x1 pixels.
-        super(750, 900, 1, false); 
+        super(750, 900, 1, false);
+        
+        // Scale the background to 1.5 times its size
         GreenfootImage img = getBackground();
         img.scale((int) (img.getWidth()*1.5), (int) (img.getHeight()*1.5));
         setBackground(img);
