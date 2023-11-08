@@ -21,7 +21,7 @@ public class TRex extends Actor
     
     // Gravity and max falling speed variables
     private static final double GRAVITY = 9.8 * 100; // 100 px = 1 m
-    private static final int MAX_Y_VEL = 300;
+    private static final int MAX_Y_VEL = 450;
     
     public TRex() {
         // Scale the T-Rex to 1/4 of its original size
@@ -190,8 +190,14 @@ public class TRex extends Actor
         
         // Update Y velocity
         Vector2D velocityVariation = Vector2D.multiply(acceleration, dt);
+        
         velocity = Vector2D.add(velocity, velocityVariation);
-
+        // Make sure the Y velocity does not exceed the maximum
+        if (velocity.getY() > MAX_Y_VEL)
+        {
+            velocity.setY(MAX_Y_VEL); 
+        }
+        
         // Update position
         Point2D nextPosition = position;
         Vector2D positionVariation = Vector2D.multiply(velocity, dt);
