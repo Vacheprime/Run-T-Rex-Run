@@ -20,12 +20,14 @@ public class Volcano extends World
     {    
         // Create a new volcano world with 600x400 cells with a cell size of 1x1 pixels.
         super(750, 900, 1, false);
+        // Remove the background
+        setBackground((GreenfootImage) null);
         
-        // Scale the background to 1.5 times its size
-        GreenfootImage img = getBackground();
-        img.scale((int) (img.getWidth()*1.5), (int) (img.getHeight()*1.5));
-        setBackground(img);
-
+        // Create two background actors that are goin to be scrolling
+        addObject(new Background(), getWidth()/2, getHeight()/2);
+        addObject(new Background(), getWidth()/2, getHeight()/2);
+        
+        
         // Set the lava to be at the bottom middle of the screen
         Actor lava = new Lava();
         addObject(lava, getWidth()/2, getHeight() + LAVA_LOWER_LIMIT);
