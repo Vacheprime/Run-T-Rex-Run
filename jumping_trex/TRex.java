@@ -14,11 +14,14 @@ public class TRex extends Actor
     private Vector2D acceleration;
     private int height, width;
     
-    // Orientation, moving speed, jump velocity and gravity variables
+    // Orientation, moving speed, jump velocity
     private char facing = 'r';
     private int runVelocity = 200;
-    private Vector2D jumpVelocity = new Vector2D(0, -350);
+    private Vector2D jumpVelocity = new Vector2D(0, -500);
+    
+    // Gravity and max falling speed variables
     private static final double GRAVITY = 9.8 * 100; // 100 px = 1 m
+    private static final int MAX_Y_VEL = 300;
     
     public TRex() {
         // Scale the T-Rex to 1/4 of its original size
@@ -52,8 +55,6 @@ public class TRex extends Actor
     
     public void moveTRex()
     {
-		// Update the position of the T-Rex
-        updatePosition();
         // When key d or right arrow is pressed
         if (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right")) {
             if (facing != 'r') {
@@ -89,6 +90,12 @@ public class TRex extends Actor
             velocity = Vector2D.add(velocity, jumpVelocity); 
         }
         
+        // Update the physics of the T-Rex
+        updatePhysics();
+    }
+    
+    public void updatePhysics()
+    {
         // Detect collisions on platforms and stop the TRex from falling
         int toRelocate = detectPlatformCollisions();
         if (toRelocate != -1)
@@ -101,7 +108,8 @@ public class TRex extends Actor
             acceleration.setY(GRAVITY);
         }
         
-        
+        // Update the position of the T-Rex
+        updatePosition();
     }
     
     public void mirrorImage(char side)
@@ -167,6 +175,15 @@ public class TRex extends Actor
             position = new Point2D(getX(), getY());
         }
         
+        
+        position = predictNextPosition();
+        
+        // Set new actor position
+        setLocation((int) position.getX(), (int) position.getY());        
+    }
+    
+    public Point2D predictNextPosition()
+    {
         // Get time step duration
         Volcano world = (Volcano) getWorld();
         double dt = world.getTimeStepDuration();
@@ -176,10 +193,10 @@ public class TRex extends Actor
         velocity = Vector2D.add(velocity, velocityVariation);
 
         // Update position
+        Point2D nextPosition = position;
         Vector2D positionVariation = Vector2D.multiply(velocity, dt);
-        position.add(positionVariation);
+        nextPosition.add(positionVariation); 
         
-        // Set new actor position
-        setLocation((int) position.getX(), (int) position.getY());        
+        return nextPosition;
     }
 }
