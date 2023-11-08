@@ -14,6 +14,8 @@ public class TRex extends Actor
     private Vector2D acceleration;
     private int height, width;
     
+    private final int legHitBox = 27; // Determined manually
+    
     // Orientation, moving speed, jump velocity
     private char facing = 'r';
     private int runVelocity = 200;
@@ -175,7 +177,7 @@ public class TRex extends Actor
             int pfHalfHeight = platform.getImage().getHeight() / 2;
             
             // Minimal distance between the two actors so that there is no collision
-            int minimalXDist = pfHalfWidth + (width / 4);
+            int minimalXDist = pfHalfWidth + (legHitBox);
             int minimalYDist = pfHalfHeight + (height / 2);
             
             // The actual distance between the two actors
