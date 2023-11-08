@@ -54,7 +54,6 @@ public class TRex extends Actor
         // Detect collision with lava
         if (detectLavaCollision())
         {
-            System.out.println("yes");
             getWorld().removeObject(this);
             changeWorld(new GameOverWorld());
         }
@@ -107,14 +106,34 @@ public class TRex extends Actor
         int toRelocate = detectPlatformCollisions();
         if (toRelocate != -1)
         {
-            acceleration.setY(0);
-            velocity.setY(0);
-            position.setY(toRelocate);
+            if (acceleration.getY() != 0)
+            {
+                acceleration.setY(0);
+                velocity.setY(0);
+                position.setY(toRelocate);
+            }
         } else
         {
             acceleration.setY(GRAVITY);
         }
         
+        toRelocate = detectBorderCollision();
+        if (toRelocate != -1)
+        {   
+            if (toRelocate < getWorld().getWidth() / 2) {
+                if (velocity.getX() < 0)
+                {   
+                    velocity.setX(0);
+                }
+            } 
+            else
+            {
+                if (velocity.getX() > 0) {
+                    velocity.setX(0);
+                }
+            }
+            position.setX(toRelocate);
+        }
         // Update the position of the T-Rex
         updatePosition();
     }
@@ -174,11 +193,28 @@ public class TRex extends Actor
         return positionToSurface;
     }
     
+    public int detectBorderCollision()
+    {
+        final double leftBorderDistance = 50 * 1.5; // The distance of the border from the edge of the screen 
+        final double rightBorderDistance = getWorld().getWidth() - leftBorderDistance;
+        
+        int positionToBorder = -1;
+        if (getX() - width/2 <= leftBorderDistance)
+        {
+            positionToBorder = (int) leftBorderDistance + width/2;
+        } 
+        else if (getX() + width/2 >= rightBorderDistance) 
+        {
+            positionToBorder = (int) rightBorderDistance - width/2;
+        }
+        
+        return positionToBorder;
+    }
+    
     public boolean detectLavaCollision() {
         
         int playerOuterBound = getY() + height/2;
         int currentLavaLevel = getWorld().getObjects(Lava.class).get(0).getLavaLevel();
-        System.out.println(playerOuterBound);
         
         if (playerOuterBound >= currentLavaLevel && currentLavaLevel != -1)
         {

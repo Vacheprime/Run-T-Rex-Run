@@ -22,5 +22,7 @@ public class GameOverWorld extends World
         GreenfootImage img = getBackground();
         img.scale((int) (img.getWidth()*1.5), (int) (img.getHeight()*1.5));
         setBackground(img);
+        
+        
     }
 }
