@@ -64,7 +64,7 @@ public class Volcano extends World
         
         // Set the last frame time
         lastFrameTimeMS = System.currentTimeMillis();
-        if(Greenfoot.getRandomNumber(200) < 10)
+        if(Greenfoot.getRandomNumber(100) < 15)
         {
             addObject(new Platform(), Greenfoot.getRandomNumber(750), Greenfoot.getRandomNumber(900) + 1100);
         }
@@ -80,7 +80,7 @@ public class Volcano extends World
         // Get the Y position of the T-Rex (player)
         TRex player = getObjects(TRex.class).get(0);
         int currentYPosition = player.getY();
-        if (currentYPosition < getHeight() / 3)
+        if (currentYPosition < getHeight() / 4)
         {
             isScrolling = true;
         } else if (currentYPosition >= getHeight() / 2)

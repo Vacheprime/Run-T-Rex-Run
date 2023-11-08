@@ -50,11 +50,14 @@ public class Lava extends Actor
      */
     public void act()
     {
-        if (frameCounter == riseAtFrame && !isScrolling)
-        {
-            setLocation(getX(), getY() - risingSpeed);
+        if (frameCounter == riseAtFrame)
+        {   
+            if (!(isScrolling && getY() == getWorld().getHeight() + 350))
+            {
+                setLocation(getX(), getY() - risingSpeed);
+            }
             frameCounter = 0;
-        } else if (!isScrolling) {
+        } else {
             frameCounter++;        
         }
         setLavaLevel(getY());
