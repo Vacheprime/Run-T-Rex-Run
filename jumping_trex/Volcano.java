@@ -37,7 +37,7 @@ public class Volcano extends World
         Actor lava = new Lava();
         addObject(lava, getWidth()/2, getHeight() + LAVA_LOWER_LIMIT);
         
-        setPaintOrder(Lava.class);
+        setPaintOrder(Lava.class, TRex.class);
         
         prepare();
     }

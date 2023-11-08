@@ -9,9 +9,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Lava extends Actor
 {
     // Rising speed variables
-    private int risingSpeed = 1;
-    private final byte RISE_AT_FRAME = 4;
-    private byte frameCounter = 0;
+    private int risingSpeed = 2;
+    private int riseAtFrame = 1;
+    private int frameCounter = 0;
     private int lavaLevel = -1;
     private boolean isScrolling = false;
     // Level variable
@@ -23,15 +23,25 @@ public class Lava extends Actor
         setImage(img);
     }
     
+    public int getLavaLevel()
+    {
+        return this.lavaLevel;    
+    }
+    
     private void setLavaLevel(int lavaLevel)
     {   
         
         this.lavaLevel = lavaLevel - getImage().getHeight()/2;
     }
     
-    public int getLavaLevel()
+    public void setRisingFrequency(int riseAtFrame)
     {
-        return this.lavaLevel;    
+        this.riseAtFrame = riseAtFrame;
+    }
+    
+    public void setRisingSpeed(int risingSpeed)
+    {
+        this.risingSpeed = risingSpeed;
     }
     
     /**
@@ -40,7 +50,7 @@ public class Lava extends Actor
      */
     public void act()
     {
-        if (frameCounter == RISE_AT_FRAME && !isScrolling)
+        if (frameCounter == riseAtFrame && !isScrolling)
         {
             setLocation(getX(), getY() - risingSpeed);
             frameCounter = 0;
