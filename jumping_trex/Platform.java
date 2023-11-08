@@ -22,5 +22,9 @@ public class Platform extends Actor
     public void act()
     {
         // Add your action code here.
+        while(isTouching(Platform.class))
+        {
+         setLocation(Greenfoot.getRandomNumber(750),Greenfoot.getRandomNumber(900));
+        }
     }
 }

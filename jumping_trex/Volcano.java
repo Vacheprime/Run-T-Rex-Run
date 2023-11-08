@@ -48,6 +48,10 @@ public class Volcano extends World
         
         // Set the last frame time
         lastFrameTimeMS = System.currentTimeMillis();
+        if(Greenfoot.getRandomNumber(200) < 10)
+        {
+            addObject(new Platform(), Greenfoot.getRandomNumber(750), Greenfoot.getRandomNumber(900) + 1100);
+        }
     }
     
     public double getTimeStepDuration()
