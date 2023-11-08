@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.*;
 
 /**
  * Write a description of class volcano here.
@@ -9,16 +10,20 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Volcano extends World
 {
     private final int LAVA_LOWER_LIMIT = 350;
+    // Scrolling variables
+    private boolean isScrolling = false;
+    private final static int SCROLL_SPEED = 2;
     
     private long lastFrameTimeMS;
     private double timeStepDuration; 
+    
     /**
      * Constructor for objects of class volcano.
      * 
      */
     public Volcano()
     {    
-        // Create a new volcano world with 600x400 cells with a cell size of 1x1 pixels.
+        // Create a new volcano world with 750x900 cells with a cell size of 1x1 pixels.
         super(750, 900, 1, false);
         // Remove the background
         setBackground((GreenfootImage) null);
@@ -46,6 +51,15 @@ public class Volcano extends World
     public void act()
     {
         // Update the time step duration
+        updateTimeStep();
+        
+        // Scroll the screen
+        scrollScreen();
+    }
+    
+    public void updateTimeStep()
+    {
+        // Update the time step duration
         timeStepDuration = (System.currentTimeMillis() - lastFrameTimeMS) / 1000.0;
         
         // Set the last frame time
@@ -55,6 +69,40 @@ public class Volcano extends World
     public double getTimeStepDuration()
     {
         return timeStepDuration;
+    }
+    
+    public void scrollScreen()
+    {
+        // Get the Y position of the T-Rex (player)
+        TRex player = getObjects(TRex.class).get(0);
+        int currentYPosition = player.getY();
+        if (currentYPosition < getHeight() / 3)
+        {
+            isScrolling = true;
+        } else if (currentYPosition >= getHeight() / 2)
+        {
+            isScrolling = false;
+        }
+        if (isScrolling) {
+            // Scroll all platforms
+            List<Platform> platforms = getObjects(Platform.class);
+            for (int i = 0; i < platforms.size(); i++)
+            {
+                platforms.get(i).scrollDown(SCROLL_SPEED);
+            }
+            
+            // Scroll the lava downwards
+            Lava lava = getObjects(Lava.class).get(0);
+            lava.scrollDown(SCROLL_SPEED);
+            
+            // Scroll the player
+            player.scrollDown(SCROLL_SPEED);
+        } else {
+            // Stop scrolling the lava downwards
+            Lava lava = getObjects(Lava.class).get(0);
+            lava.stopScrollDown();
+        }
+        
     }
     
     /**

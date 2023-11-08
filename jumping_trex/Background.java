@@ -8,19 +8,20 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Background extends Actor
 {
-    public void Background()
+    public Background()
     {
         // Scale the image by a factor of 1.5
         GreenfootImage img = getImage();
-        img.scale((int) img.getWidth()*1.5, (int) img.getHeight()*1.5);
+        img.scale((int) (img.getWidth()*1.5), (int) (img.getHeight()*1.5));
         setImage(img);
     }
+    
     /**
      * Act - do whatever the Background wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        // Add your action code here.
+        
     }
 }

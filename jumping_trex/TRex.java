@@ -263,6 +263,11 @@ public class TRex extends Actor
         return nextPosition;
     }
     
+    public void scrollDown(int scrollingSpeed)
+    {
+        position.setY(getY() + scrollingSpeed);
+    }
+    
     public void changeWorld(World world)
     {
         Greenfoot.setWorld(world);
