@@ -15,6 +15,15 @@ public class Platform extends Actor
         setImage(img);
     }
     
+    public void act()
+    {
+        // Add your action code here.
+        while(isTouching(Platform.class))
+        {
+         setLocation(Greenfoot.getRandomNumber(750),Greenfoot.getRandomNumber(900));
+        }
+    }
+
     public void scrollDown(int scrollingSpeed)
     {
         setLocation(getX(), getY() + scrollingSpeed);
