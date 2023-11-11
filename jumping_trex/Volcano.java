@@ -37,7 +37,7 @@ public class Volcano extends World
         Actor lava = new Lava();
         addObject(lava, getWidth()/2, getHeight() + LAVA_LOWER_LIMIT);
         
-        setPaintOrder(Lava.class, TRex.class);
+        setPaintOrder(Score.class, Lava.class, TRex.class);
         
         prepare();
     }
@@ -46,6 +46,10 @@ public class Volcano extends World
     {
         // Set the initial frame time 
         lastFrameTimeMS = System.currentTimeMillis();
+        
+        // Create a new score actor
+        Score score = new Score(lastFrameTimeMS - System.currentTimeMillis());
+        addObject(score, 30, 20);
     }
     
     public void act()

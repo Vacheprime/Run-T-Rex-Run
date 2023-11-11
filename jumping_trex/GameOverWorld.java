@@ -13,7 +13,7 @@ public class GameOverWorld extends World
      * Constructor for objects of class GameOverWorld.
      * 
      */
-    public GameOverWorld()
+    public GameOverWorld(int score)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(750, 900, 1, false);
@@ -22,7 +22,7 @@ public class GameOverWorld extends World
         GreenfootImage img = getBackground();
         img.scale((int) (img.getWidth()*1.5), (int) (img.getHeight()*1.5));
         setBackground(img);
-        showText("YOU LOST AINT NO WAY:",375,450);
+        showText("YOU LOST! Final Score: " + score, 375, 450);
         
         
     }

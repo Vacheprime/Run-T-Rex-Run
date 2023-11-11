@@ -14,6 +14,7 @@ public class TRex extends Actor
     private Vector2D acceleration;
     private int height, width;
     
+    // T-Rex hit box
     private final int legHitBox = 27; // Determined manually
     
     // Orientation, moving speed, jump velocity
@@ -56,8 +57,9 @@ public class TRex extends Actor
         // Detect collision with lava
         if (detectLavaCollision())
         {
-            getWorld().removeObject(this);
-            changeWorld(new GameOverWorld());
+			World world = getWorld();
+            world.removeObject(this);
+            changeWorld(new GameOverWorld(world.getObjects(Score.class).get(0).getScore()));
         }
     }
     
