@@ -20,7 +20,7 @@ public class Platform extends Actor
         // Add your action code here.
         while(isTouching(Platform.class))
         {
-         setLocation(Greenfoot.getRandomNumber(750),Greenfoot.getRandomNumber(900));
+         setLocation(Greenfoot.getRandomNumber(500) + 130,Greenfoot.getRandomNumber(400));
         }
     }
 

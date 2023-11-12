@@ -54,8 +54,8 @@ public class Volcano extends World
     
     public double getScalingFactor()
     {
-		return scalingFactor;
-	}
+        return scalingFactor;
+    }
     
     public void started()
     {
@@ -83,9 +83,9 @@ public class Volcano extends World
         
         // Set the last frame time
         lastFrameTimeMS = System.currentTimeMillis();
-        if(Greenfoot.getRandomNumber(100) < 15)
+        if(Greenfoot.getRandomNumber(100) < 7)
         {
-            addObject(new Platform(), Greenfoot.getRandomNumber(750), Greenfoot.getRandomNumber(900) + 1100);
+            addObject(new Platform(), Greenfoot.getRandomNumber(500) + 130, Greenfoot.getRandomNumber(400));
         }
     }
  
@@ -96,8 +96,8 @@ public class Volcano extends World
         int currentYPosition = player.getY();
 
         if (currentYPosition >= getHeight() / 2 && isScrolling)
-        {	
-			isScrolling = false;
+        {    
+            isScrolling = false;
             // Stop scrolling the lava downwards
             Lava lava = getObjects(Lava.class).get(0);
             lava.stopScrollDown();
