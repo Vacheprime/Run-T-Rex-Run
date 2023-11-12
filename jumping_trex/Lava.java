@@ -10,7 +10,7 @@ public class Lava extends Actor
 {
     // Rising speed variables
     private int risingSpeed = 2;
-    private int riseAtFrame = 1;
+    private int riseAtFrame = 3;
     private int frameCounter = 0;
     private int lavaLevel = -1;
     private boolean isScrolling = false;

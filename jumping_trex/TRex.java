@@ -10,6 +10,7 @@ public class TRex extends Actor
 {   
     // Vector information on the position, velocity and acceleration of the T-Rex
     private Point2D position;
+    private Point2D previousPosition;
     private Vector2D velocity;
     private Vector2D acceleration;
     private int height, width;
@@ -20,7 +21,7 @@ public class TRex extends Actor
     // Orientation, moving speed, jump velocity
     private char facing = 'r';
     private int runVelocity = 200;
-    private Vector2D jumpVelocity = new Vector2D(0, -500);
+    private Vector2D jumpVelocity = new Vector2D(0, -700);
     
     // Gravity and max falling speed variables
     private static final double GRAVITY = 9.8 * 100; // 100 px = 1 m
@@ -35,6 +36,7 @@ public class TRex extends Actor
         
         // Initialize the TRex
         this.position = null;
+        this.previousPosition = null;
         this.velocity = new Vector2D(0,0);
         this.acceleration = new Vector2D(0, GRAVITY);
         
@@ -43,16 +45,20 @@ public class TRex extends Actor
         this.height = img.getHeight();
     }
     
+    public void addedToWorld(World world)
+    {
+		// Set the initial position and last frame position to the current
+		// X and Y when added to the world
+		this.position = new Point2D(getX(), getY());
+		this.previousPosition = new Point2D(position);
+	}
+    
     /**
      * Act - do whatever the TRex wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
     {
-        // Initialize the initial position of the T-Rex
-        if (position == null) {
-            position = new Point2D(getX(), getY());
-        }
         // Execute the movements
         moveTRex();
         
@@ -115,6 +121,7 @@ public class TRex extends Actor
     
     private void updatePhysics()
     {
+		
         // Detect collisions on platforms and stop the TRex from falling
         int toRelocate = detectPlatformCollisions();
         if (toRelocate != -1 && acceleration.getY() != 0)
@@ -187,6 +194,9 @@ public class TRex extends Actor
         List<Platform> platformObjects = getWorld().getObjects(Platform.class);
         int positionToSurface = -1;
         
+        // Get the next Position
+        Point2D nextPosition = predictNextPosition();
+        
         // Loop for every platform
         for (int i = 0; i < platformObjects.size(); i++)
         {
@@ -200,18 +210,31 @@ public class TRex extends Actor
             int minimalXDist = pfHalfWidth + (legHitBox);
             int minimalYDist = pfHalfHeight + (height / 2);
             
-            // The actual distance between the two actors
-            int distX = Math.abs(platform.getX() - getX());
-            int distY = Math.abs(platform.getY() - getY());
+            // The distance between the two actors in the next frame
+            int distX = Math.abs(platform.getX() - (int) nextPosition.getX());
+            int distY = Math.abs(platform.getY() - (int) nextPosition.getY());
             
-            // Check for collisions
+            // The distance between the two actors in the last frame
+            int currentDistX = Math.abs(platform.getX() - (int) position.getX());
+            int currentDistY = Math.abs(platform.getY() - (int) position.getY());
+            
+            // Check for collisions in the next frame
             if (distX <= minimalXDist && distY <= minimalYDist)
             {
+				// Check if the TRex was above the platform in the last frame
+				if ((int) position.getY() + height/2 <= platform.getY() - pfHalfHeight)
+				{
+					if (velocity.getY() > 0)
+					{
+						positionToSurface = platform.getY() - minimalYDist;
+					}
+				}
+				
                 // Only a collision if the T-Rex is falling from above
-                if (velocity.getY() > 0  && (getY() + height / 2) < platform.getY())
-                {
-                    positionToSurface = platform.getY() - minimalYDist;
-                }
+                //if (velocity.getY() > 0  && (getY() + height / 2) < platform.getY())
+                //{
+                //    positionToSurface = ;
+                //}
             }
         }
         // Return where the T-Rex should be on the Y axis
@@ -255,13 +278,11 @@ public class TRex extends Actor
     }
     
     private void updatePosition()
-    {
-        // Set the initial position
-        if (position == null)
-        {
-            position = new Point2D(getX(), getY());
-        }
-        
+    {   
+		// Save the current position
+		previousPosition.setX(position.getX());
+		previousPosition.setY(position.getY());
+		
         // Get the next position
         position = predictNextPosition();
         
@@ -274,7 +295,7 @@ public class TRex extends Actor
         // Get time step duration
         Volcano world = (Volcano) getWorld();
         double dt = world.getTimeStepDuration();
-        
+        System.out.println(dt);
         // Update the Y velocity
         Vector2D velocityVariation = Vector2D.multiply(acceleration, dt);
         
@@ -287,7 +308,7 @@ public class TRex extends Actor
         }
         
         // Update position
-        Point2D nextPosition = position;
+        Point2D nextPosition = new Point2D(position);
         Vector2D positionVariation = Vector2D.multiply(velocity, dt);
         nextPosition.add(positionVariation); 
         

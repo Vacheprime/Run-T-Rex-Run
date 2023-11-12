@@ -54,8 +54,8 @@ public class Volcano extends World
     
     public double getScalingFactor()
     {
-		return scalingFactor;
-	}
+        return scalingFactor;
+    }
     
     public void started()
     {
@@ -96,8 +96,8 @@ public class Volcano extends World
         int currentYPosition = player.getY();
 
         if (currentYPosition >= getHeight() / 2 && isScrolling)
-        {	
-			isScrolling = false;
+        {    
+            isScrolling = false;
             // Stop scrolling the lava downwards
             Lava lava = getObjects(Lava.class).get(0);
             lava.stopScrollDown();
@@ -393,5 +393,8 @@ public class Volcano extends World
         platform6.setLocation(409,550);
         platform.setLocation(351,71);
         platform.setLocation(427,46);
+        removeObject(tRex);
+        TRex tRex2 = new TRex();
+        addObject(tRex2,484,678);
     }
 }
