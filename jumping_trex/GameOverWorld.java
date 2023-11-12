@@ -21,7 +21,14 @@ public class GameOverWorld extends World
         GreenfootImage img = getBackground();
         img.scale((int) (img.getWidth() * scalingFactor), (int) (img.getHeight() * scalingFactor));
         setBackground(img);
-        showText("YOU LOST! Final Score: " + score, 375, 450);
+        
+        String gameOverText = String.format("YOU LOST!\nFinal Score: %d", score);
+        GreenfootImage textImage = new GreenfootImage(gameOverText, 40, Color.WHITE, null);
+        
+        
+        
+        img.drawImage(textImage, getWidth()/2 - textImage.getWidth()/2, getHeight()/2 - textImage.getHeight()/2);
+        //showText("YOU LOST! Final Score: " + score, 375, 450);
         
         
     }
