@@ -16,11 +16,17 @@ public class Lava extends Actor
     private boolean isScrolling = false;
     // Level variable
     private final int LAVA_LOWER_LIMIT = 350;
-    public Lava() {
+    
+    public Lava(double scalingFactor) {
         // Scale the image to be 1.5x bigger
         GreenfootImage img = getImage();
-        img.scale((int) (img.getWidth()*1.5), (int) (img.getHeight()*1.5));
+        img.scale((int) (img.getWidth() * scalingFactor), (int) (img.getHeight() * scalingFactor));
         setImage(img);
+    }
+    
+    public int getLavaLowerLimit()
+    {
+        return LAVA_LOWER_LIMIT;
     }
     
     public int getLavaLevel()
@@ -52,12 +58,13 @@ public class Lava extends Actor
     {
         if (frameCounter == riseAtFrame)
         {   
-            if (!(isScrolling && getY() == getWorld().getHeight() + 350))
+            if (!(isScrolling && getY() == getWorld().getHeight() + LAVA_LOWER_LIMIT))
             {
                 setLocation(getX(), getY() - risingSpeed);
             }
             frameCounter = 0;
-        } else {
+        } else
+        {
             frameCounter++;        
         }
         setLavaLevel(getY());
@@ -65,7 +72,7 @@ public class Lava extends Actor
     
     public void scrollDown(int scrollingSpeed) {
         isScrolling = true;
-        if (getY() < getWorld().getHeight() + 350)
+        if (getY() < getWorld().getHeight() + LAVA_LOWER_LIMIT)
         {
             setLocation(getX(), getY() + scrollingSpeed);
         }

@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=GameOverWorld
 comment0.text=\n\ Write\ a\ description\ of\ class\ GameOverWorld\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
-comment1.params=score
-comment1.target=GameOverWorld(int)
+comment1.params=score\ scalingFactor
+comment1.target=GameOverWorld(int,\ double)
 comment1.text=\n\ Constructor\ for\ objects\ of\ class\ GameOverWorld.\n\ \n
 numComments=2

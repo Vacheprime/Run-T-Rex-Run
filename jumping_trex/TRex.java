@@ -62,9 +62,9 @@ public class TRex extends Actor
         // Detect collision with lava
         if (detectLavaCollision())
         {
-			World world = getWorld();
+			Volcano world = (Volcano) getWorld();
             world.removeObject(this);
-            changeWorld(new GameOverWorld(world.getObjects(Score.class).get(0).getScore()));
+            changeWorld(new GameOverWorld(world.getObjects(Score.class).get(0).getScore(), world.getScalingFactor()));
         }
     }
     

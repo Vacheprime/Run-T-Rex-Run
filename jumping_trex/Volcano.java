@@ -9,11 +9,14 @@ import java.util.*;
  */
 public class Volcano extends World
 {
-    private final int LAVA_LOWER_LIMIT = 350;
+    // Scalling factor
+    private double scalingFactor = 1.5;
+    
     // Scrolling variables
     private boolean isScrolling = false;
     private final static int SCROLL_SPEED = 2;
     
+    // Time step variables
     private long lastFrameTimeMS;
     private double timeStepDuration; 
     
@@ -33,14 +36,26 @@ public class Volcano extends World
         addObject(new Background(), getWidth()/2, getHeight()/2);
         
         
-        // Set the lava to be at the bottom middle of the screen
-        Actor lava = new Lava();
-        addObject(lava, getWidth()/2, getHeight() + LAVA_LOWER_LIMIT);
+        // Set the lava to be at its lower limit
+        Lava lava = new Lava(scalingFactor);
+        addObject(lava, getWidth()/2, getHeight() + lava.getLavaLowerLimit());
         
+        // Draw the actors in the right order
         setPaintOrder(Score.class, Lava.class, TRex.class);
         
+        // Populate the volcano
         prepare();
     }
+      
+    public double getTimeStepDuration()
+    {
+        return timeStepDuration;
+    }
+    
+    public double getScalingFactor()
+    {
+		return scalingFactor;
+	}
     
     public void started()
     {
@@ -61,7 +76,7 @@ public class Volcano extends World
         scrollScreen();
     }
     
-    public void updateTimeStep()
+    private void updateTimeStep()
     {
         // Update the time step duration
         timeStepDuration = (System.currentTimeMillis() - lastFrameTimeMS) / 1000.0;
@@ -73,25 +88,22 @@ public class Volcano extends World
             addObject(new Platform(), Greenfoot.getRandomNumber(750), Greenfoot.getRandomNumber(900) + 1100);
         }
     }
-    
-    public double getTimeStepDuration()
-    {
-        return timeStepDuration;
-    }
-    
-    public void scrollScreen()
+ 
+    private void scrollScreen()
     {
         // Get the Y position of the T-Rex (player)
         TRex player = getObjects(TRex.class).get(0);
         int currentYPosition = player.getY();
-        if (currentYPosition < getHeight() / 4)
+
+        if (currentYPosition >= getHeight() / 2 && isScrolling)
+        {	
+			isScrolling = false;
+            // Stop scrolling the lava downwards
+            Lava lava = getObjects(Lava.class).get(0);
+            lava.stopScrollDown();
+        } else if (isScrolling || currentYPosition < getHeight() / 4)
         {
             isScrolling = true;
-        } else if (currentYPosition >= getHeight() / 2)
-        {
-            isScrolling = false;
-        }
-        if (isScrolling) {
             // Scroll all platforms
             List<Platform> platforms = getObjects(Platform.class);
             for (int i = 0; i < platforms.size(); i++)
@@ -105,12 +117,7 @@ public class Volcano extends World
             
             // Scroll the player
             player.scrollDown(SCROLL_SPEED);
-        } else {
-            // Stop scrolling the lava downwards
-            Lava lava = getObjects(Lava.class).get(0);
-            lava.stopScrollDown();
         }
-        
     }
     
     /**
