@@ -28,7 +28,6 @@ public class GameOverWorld extends World
         
         
         img.drawImage(textImage, getWidth()/2 - textImage.getWidth()/2, getHeight()/2 - textImage.getHeight()/2);
-        //showText("YOU LOST! Final Score: " + score, 375, 450);
         
         
     }

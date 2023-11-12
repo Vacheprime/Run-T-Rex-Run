@@ -393,5 +393,8 @@ public class Volcano extends World
         platform6.setLocation(409,550);
         platform.setLocation(351,71);
         platform.setLocation(427,46);
+        removeObject(tRex);
+        TRex tRex2 = new TRex();
+        addObject(tRex2,484,678);
     }
 }
