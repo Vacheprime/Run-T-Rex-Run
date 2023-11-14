@@ -14,7 +14,7 @@ public class Volcano extends World
     
     // Scrolling variables
     private boolean isScrolling = false;
-    private final static int SCROLL_SPEED = 2;
+    private final static int SCROLL_SPEED = 1;
     
     // Time step variables
     private long lastFrameTimeMS;
