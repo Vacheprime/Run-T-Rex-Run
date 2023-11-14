@@ -8,11 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Platform extends Actor
 {
-    private static double scalingFactor = 0.5;
     public Platform() {
         // Scale the platform to 1/2 of its original size
         GreenfootImage img = getImage();
-        img.scale((int) (img.getWidth() * scalingFactor), (int) (img.getHeight() * scalingFactor));
+        img.scale(img.getWidth()/2, img.getHeight()/2);
         setImage(img);
     }
     
@@ -21,7 +20,7 @@ public class Platform extends Actor
         // Add your action code here.
         while(isTouching(Platform.class))
         {
-         setLocation(Greenfoot.getRandomNumber(500) + 130,Greenfoot.getRandomNumber(250));
+         setLocation(Greenfoot.getRandomNumber(500) + 130,Greenfoot.getRandomNumber(400));
         }
     }
 

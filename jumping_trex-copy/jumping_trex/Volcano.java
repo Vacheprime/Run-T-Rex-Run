@@ -10,11 +10,11 @@ import java.util.*;
 public class Volcano extends World
 {
     // Scalling factor
-    private static double scalingFactor = 1.5;
+    private double scalingFactor = 1.5;
     
     // Scrolling variables
     private boolean isScrolling = false;
-    private final static int SCROLL_SPEED = 1;
+    private final static int SCROLL_SPEED = 2;
     
     // Time step variables
     private long lastFrameTimeMS;
@@ -32,13 +32,13 @@ public class Volcano extends World
         setBackground((GreenfootImage) null);
         
         // Create two background actors that are goin to be scrolling
-        addObject(new Background(), getWidth() / 2, getHeight() / 2);
-        addObject(new Background(), getWidth() / 2, getHeight() / 2);
+        addObject(new Background(), getWidth()/2, getHeight()/2);
+        addObject(new Background(), getWidth()/2, getHeight()/2);
         
         
         // Set the lava to be at its lower limit
-        Lava lava = new Lava();
-        addObject(lava, getWidth() / 2, getHeight() + lava.getLavaLowerLimit());
+        Lava lava = new Lava(scalingFactor);
+        addObject(lava, getWidth()/2, getHeight() + lava.getLavaLowerLimit());
         
         // Draw the actors in the right order
         setPaintOrder(Score.class, Lava.class, TRex.class);
@@ -52,7 +52,7 @@ public class Volcano extends World
         return timeStepDuration;
     }
     
-    public static double getScalingFactor()
+    public double getScalingFactor()
     {
         return scalingFactor;
     }
@@ -74,7 +74,10 @@ public class Volcano extends World
         
         // Scroll the screen
         scrollScreen();
-        
+        if(Greenfoot.getRandomNumber(100) < 7)
+        {
+            addObject(new Platform(), Greenfoot.getRandomNumber(500) + 130, Greenfoot.getRandomNumber(400));
+        }
     }
     
     private void updateTimeStep()
@@ -107,10 +110,7 @@ public class Volcano extends World
             {
                 platforms.get(i).scrollDown(SCROLL_SPEED);
             }
-            if(Greenfoot.getRandomNumber(100) < 4)
-        {
-            addObject(new Platform(), Greenfoot.getRandomNumber(500) + 130, Greenfoot.getRandomNumber(300));
-        }
+            
             // Scroll the lava downwards
             Lava lava = getObjects(Lava.class).get(0);
             lava.scrollDown(SCROLL_SPEED);
@@ -396,8 +396,5 @@ public class Volcano extends World
         removeObject(tRex);
         TRex tRex2 = new TRex();
         addObject(tRex2,484,678);
-        TRex tRex3 = new TRex();
-        addObject(tRex3,464,665);
-        removeObject(tRex3);
     }
 }

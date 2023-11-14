@@ -18,21 +18,19 @@ public class TRex extends Actor
     private final int legHitBox = 27; // Determined manually
     
     // Orientation, moving speed, jump velocity
-    private static double scalingFactor = 0.25;
-    private static double worldScalingFactor = Volcano.getScalingFactor();
     private char facing = 'r';
     private int runVelocity = 200;
     private Vector2D jumpVelocity = new Vector2D(0, -700);
     
     // Gravity and max falling speed variables
-    private static final double GRAVITY = 9.9 * 100; // 100 px = 1 m
+    private static final double GRAVITY = 9.8 * 100; // 100 px = 1 m
     private static final int MAX_Y_VEL = 450;
     
     public TRex()
     {
         // Scale the T-Rex to 1/4 of its original size
         GreenfootImage img = getImage();
-        img.scale((int) (img.getWidth() * scalingFactor), (int) (img.getHeight() * scalingFactor));
+        img.scale(img.getWidth()/4, img.getHeight()/4);
         setImage(img);
         
         // Initialize the TRex
@@ -47,11 +45,10 @@ public class TRex extends Actor
     
     public void addedToWorld(World world)
     {
-        // Set the initial position and last frame position to the current
-        // X and Y when added to the world
-        this.position = new Point2D(getX(), getY());
-        
-    }
+		// Set the initial position and last frame position to the current
+		// X and Y when added to the world
+		this.position = new Point2D(getX(), getY());
+	}
     
     /**
      * Act - do whatever the TRex wants to do. This method is called whenever
@@ -68,9 +65,9 @@ public class TRex extends Actor
         // Detect collision with lava
         if (detectLavaCollision())
         {
-            World world = getWorld();
+			Volcano world = (Volcano) getWorld();
             world.removeObject(this);
-            changeWorld(new GameOverWorld(world.getObjects(Score.class).get(0).getScore()));
+            changeWorld(new GameOverWorld(world.getObjects(Score.class).get(0).getScore(), world.getScalingFactor()));
         }
     }
     
@@ -78,7 +75,7 @@ public class TRex extends Actor
     {
         // When key d or right arrow is pressed
         if (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))
-        {
+		{
             if (facing != 'r')
             {
                 // Change the orientation of the T-Rex to the right
@@ -109,7 +106,7 @@ public class TRex extends Actor
         
         } else if (velocity.getX() != 0)
         {
-            velocity.setX(0);
+			velocity.setX(0);
         }
         
         // When key w or up arrow is pressed and the player is not mid-air
@@ -121,13 +118,13 @@ public class TRex extends Actor
     
     private void updatePhysics()
     {
-        
+		
         // Detect collisions on platforms and stop the TRex from falling
         int toRelocate = detectPlatformCollisions();
         if (toRelocate != -1 && acceleration.getY() != 0)
         {
-            // Only relocate if the T-Rex is falling and not standing still
-            // on the platform
+			// Only relocate if the T-Rex is falling and not standing still
+			// on the platform
             if (acceleration.getY() != 0)
             {
                 acceleration.setY(0);
@@ -145,13 +142,13 @@ public class TRex extends Actor
         toRelocate = detectBorderCollision();
         if (toRelocate != -1)
         {   
-            // If it is a collision on the left border
+			// If it is a collision on the left border
             if (toRelocate < getWorld().getWidth() / 2)
             {
-                if (velocity.getX() < 0)
-                {
-                    velocity.setX(0);
-                }
+				if (velocity.getX() < 0)
+				{
+					velocity.setX(0);
+				}
             } 
             else if (velocity.getX() > 0)
             {
@@ -221,15 +218,15 @@ public class TRex extends Actor
             // Check for collisions in the next frame
             if (distX <= minimalXDist && distY <= minimalYDist)
             {
-                // Check if the TRex was above the platform in the last frame
-                if ((int) position.getY() + height/2 <= platform.getY() - pfHalfHeight)
-                {
-                    // Check if the T-Rex is falling down onto the paltform
-                    if (velocity.getY() > 0)
-                    {
-                        positionToSurface = platform.getY() - minimalYDist;
-                    }
-                }
+				// Check if the TRex was above the platform in the last frame
+				if ((int) position.getY() + height/2 <= platform.getY() - pfHalfHeight)
+				{
+					// Check if the T-Rex is falling down onto the paltform
+					if (velocity.getY() > 0)
+					{
+						positionToSurface = platform.getY() - minimalYDist;
+					}
+				}
             }
         }
         // Return where the T-Rex should be on the Y axis
@@ -238,8 +235,8 @@ public class TRex extends Actor
     
     private int detectBorderCollision()
     {
-        // The distance of the left border from the edge of the screen 
-        double leftBorderDistance = 50 * worldScalingFactor;
+		// The distance of the left border from the edge of the screen 
+        double leftBorderDistance = 50 * ((Volcano) getWorld()).getScalingFactor();
         
         // The distance of the right border from the edge of the screen
         double rightBorderDistance = getWorld().getWidth() - leftBorderDistance;
@@ -274,7 +271,7 @@ public class TRex extends Actor
     
     private void updatePosition()
     {
-        
+		
         // Get the next position
         position = predictNextPosition();
         
