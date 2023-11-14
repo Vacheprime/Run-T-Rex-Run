@@ -22,7 +22,7 @@ public class TRex extends Actor
     private static double worldScalingFactor = Volcano.getScalingFactor();
     private char facing = 'r';
     private int runVelocity = 200;
-    private Vector2D jumpVelocity = new Vector2D(0, -700);
+    private Vector2D jumpVelocity = new Vector2D(0, -600);
     
     // Gravity and max falling speed variables
     private static final double GRAVITY = 9.8 * 100; // 100 px = 1 m
@@ -43,6 +43,11 @@ public class TRex extends Actor
         // Set the fields to the width and height of the scaled image
         this.width = img.getWidth();
         this.height = img.getHeight();
+    }
+    
+    public Vector2D getAcceleration()
+    {
+        return new Vector2D(acceleration);
     }
     
     public void addedToWorld(World world)

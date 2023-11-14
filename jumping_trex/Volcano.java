@@ -14,7 +14,6 @@ public class Volcano extends World
     
     // Scrolling variables
     private boolean isScrolling = false;
-    private final static int SCROLL_SPEED = 2;
     
     // Time step variables
     private long lastFrameTimeMS;
@@ -101,22 +100,29 @@ public class Volcano extends World
             // Stop scrolling the lava downwards
             Lava lava = getObjects(Lava.class).get(0);
             lava.stopScrollDown();
-        } else if (isScrolling || currentYPosition < getHeight() / 4)
+        } else if (isScrolling || (currentYPosition + 5 < getHeight() / 3 && player.getAcceleration().getY() == 0))
         {
             isScrolling = true;
+            int distToHalfScreen = Math.abs(currentYPosition - getHeight()/2);
+            int scrollingSpeed = distToHalfScreen / 15;
+            // Set a minimal scrolling speed
+            if (scrollingSpeed < 5)
+            {
+                scrollingSpeed = 5;
+            }
             // Scroll all platforms
             List<Platform> platforms = getObjects(Platform.class);
             for (int i = 0; i < platforms.size(); i++)
             {
-                platforms.get(i).scrollDown(SCROLL_SPEED);
+                platforms.get(i).scrollDown(scrollingSpeed);
             }
             
             // Scroll the lava downwards
             Lava lava = getObjects(Lava.class).get(0);
-            lava.scrollDown(SCROLL_SPEED);
+            lava.scrollDown(scrollingSpeed);
             
             // Scroll the player
-            player.scrollDown(SCROLL_SPEED);
+            player.scrollDown(scrollingSpeed);
         }
     }
     
