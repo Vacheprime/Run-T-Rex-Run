@@ -74,10 +74,7 @@ public class Volcano extends World
         
         // Scroll the screen
         scrollScreen();
-        if(Greenfoot.getRandomNumber(100) < 7)
-        {
-            addObject(new Platform(), Greenfoot.getRandomNumber(500) + 130, Greenfoot.getRandomNumber(400));
-        }
+        
     }
     
     private void updateTimeStep()
@@ -110,7 +107,10 @@ public class Volcano extends World
             {
                 platforms.get(i).scrollDown(SCROLL_SPEED);
             }
-            
+            if(Greenfoot.getRandomNumber(100) < 5)
+        {
+            addObject(new Platform(), Greenfoot.getRandomNumber(500) + 130, Greenfoot.getRandomNumber(275));
+        }
             // Scroll the lava downwards
             Lava lava = getObjects(Lava.class).get(0);
             lava.scrollDown(SCROLL_SPEED);
