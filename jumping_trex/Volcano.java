@@ -14,7 +14,7 @@ public class Volcano extends World
     
     // Scrolling variables
     private boolean isScrolling = false;
-    
+    private final int scrollLine = 2;
     // Time step variables
     private long lastFrameTimeMS;
     private double timeStepDuration; 
@@ -94,21 +94,21 @@ public class Volcano extends World
         TRex player = getObjects(TRex.class).get(0);
         int currentYPosition = player.getY();
 
-        if (currentYPosition >= getHeight() / 2 && isScrolling)
+        if (currentYPosition > getHeight() / scrollLine && isScrolling)
         {    
             isScrolling = false;
             // Stop scrolling the lava downwards
             Lava lava = getObjects(Lava.class).get(0);
             lava.stopScrollDown();
-        } else if (isScrolling || (currentYPosition + 5 < getHeight() / 3 && player.getAcceleration().getY() == 0))
+        } else if (isScrolling || (currentYPosition < getHeight() / scrollLine))
         {
             isScrolling = true;
-            int distToHalfScreen = Math.abs(currentYPosition - getHeight()/2);
-            int scrollingSpeed = distToHalfScreen / 15;
+            int distToScrollLine= Math.abs(currentYPosition - getHeight() / scrollLine);
+            int scrollingSpeed = distToScrollLine / 15;
             // Set a minimal scrolling speed
-            if (scrollingSpeed < 5)
+            if (scrollingSpeed < 1)
             {
-                scrollingSpeed = 5;
+                scrollingSpeed = 1;
             }
             // Scroll all platforms
             List<Platform> platforms = getObjects(Platform.class);
