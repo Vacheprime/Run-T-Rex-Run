@@ -67,7 +67,7 @@ public class Lava extends Actor
             frameCounter = 0;
         } else
         {
-            frameCounter++;        
+            frameCounter++; 
         }
         setLavaLevel(getY());
     }
