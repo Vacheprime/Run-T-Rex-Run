@@ -14,13 +14,15 @@ public class Lava extends Actor
     private int frameCounter = 0;
     private int lavaLevel = -1;
     private boolean isScrolling = false;
+    // Scaling variable
+    private static double worldScalingFactor = Volcano.getScalingFactor();
     // Level variable
     private final int LAVA_LOWER_LIMIT = 350;
     
-    public Lava(double scalingFactor) {
+    public Lava() {
         // Scale the image to be 1.5x bigger
         GreenfootImage img = getImage();
-        img.scale((int) (img.getWidth() * scalingFactor), (int) (img.getHeight() * scalingFactor));
+        img.scale((int) (img.getWidth() * worldScalingFactor), (int) (img.getHeight() * worldScalingFactor));
         setImage(img);
     }
     

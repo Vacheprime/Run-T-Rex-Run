@@ -10,7 +10,7 @@ import java.util.*;
 public class Volcano extends World
 {
     // Scalling factor
-    private double scalingFactor = 1.5;
+    private static double scalingFactor = 1.5;
     
     // Scrolling variables
     private boolean isScrolling = false;
@@ -32,13 +32,13 @@ public class Volcano extends World
         setBackground((GreenfootImage) null);
         
         // Create two background actors that are goin to be scrolling
-        addObject(new Background(), getWidth()/2, getHeight()/2);
-        addObject(new Background(), getWidth()/2, getHeight()/2);
+        addObject(new Background(), getWidth() / 2, getHeight() / 2);
+        addObject(new Background(), getWidth() / 2, getHeight() / 2);
         
         
         // Set the lava to be at its lower limit
-        Lava lava = new Lava(scalingFactor);
-        addObject(lava, getWidth()/2, getHeight() + lava.getLavaLowerLimit());
+        Lava lava = new Lava();
+        addObject(lava, getWidth() / 2, getHeight() + lava.getLavaLowerLimit());
         
         // Draw the actors in the right order
         setPaintOrder(Score.class, Lava.class, TRex.class);
@@ -52,7 +52,7 @@ public class Volcano extends World
         return timeStepDuration;
     }
     
-    public double getScalingFactor()
+    public static double getScalingFactor()
     {
         return scalingFactor;
     }

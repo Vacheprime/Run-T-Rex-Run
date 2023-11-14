@@ -8,10 +8,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Platform extends Actor
 {
+    private static double scalingFactor = 0.5;
     public Platform() {
         // Scale the platform to 1/2 of its original size
         GreenfootImage img = getImage();
-        img.scale(img.getWidth()/2, img.getHeight()/2);
+        img.scale((int) (img.getWidth() * scalingFactor), (int) (img.getHeight() * scalingFactor));
         setImage(img);
     }
     

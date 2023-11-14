@@ -8,11 +8,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Background extends Actor
 {
+    private static double worldScalingFactor = Volcano.getScalingFactor();
     public Background()
     {
         // Scale the image by a factor of 1.5
         GreenfootImage img = getImage();
-        img.scale((int) (img.getWidth()*1.5), (int) (img.getHeight()*1.5));
+        img.scale((int) (img.getWidth() * worldScalingFactor), (int) (img.getHeight() * worldScalingFactor));
         setImage(img);
     }
     

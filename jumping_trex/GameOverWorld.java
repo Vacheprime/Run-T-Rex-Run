@@ -8,18 +8,19 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class GameOverWorld extends World
 {
+    private static double worldScalingFactor = Volcano.getScalingFactor();
     /**
      * Constructor for objects of class GameOverWorld.
      * 
      */
-    public GameOverWorld(int score, double scalingFactor)
+    public GameOverWorld(int score)
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(750, 900, 1, false);
         
         // Scale the background to 1.5 times its size
         GreenfootImage img = getBackground();
-        img.scale((int) (img.getWidth() * scalingFactor), (int) (img.getHeight() * scalingFactor));
+        img.scale((int) (img.getWidth() * worldScalingFactor), (int) (img.getHeight() * worldScalingFactor));
         setBackground(img);
         
         String gameOverText = String.format("YOU LOST!\nFinal Score: %d", score);
