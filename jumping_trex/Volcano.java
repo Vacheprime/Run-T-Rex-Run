@@ -14,8 +14,7 @@ public class Volcano extends World
     
     // Scrolling variables
     private boolean isScrolling = false;
-    private final static int SCROLL_SPEED = 1;
-    
+    private final int scrollLine = 2;
     // Time step variables
     private long lastFrameTimeMS;
     private double timeStepDuration; 
@@ -91,20 +90,27 @@ public class Volcano extends World
         TRex player = getObjects(TRex.class).get(0);
         int currentYPosition = player.getY();
 
-        if (currentYPosition >= getHeight() / 2 && isScrolling)
+        if (currentYPosition > getHeight() / scrollLine && isScrolling)
         {    
             isScrolling = false;
             // Stop scrolling the lava downwards
             Lava lava = getObjects(Lava.class).get(0);
             lava.stopScrollDown();
-        } else if (isScrolling || currentYPosition < getHeight() / 4)
+        } else if (isScrolling || (currentYPosition < getHeight() / scrollLine))
         {
             isScrolling = true;
+            int distToScrollLine= Math.abs(currentYPosition - getHeight() / scrollLine);
+            int scrollingSpeed = distToScrollLine / 15;
+            // Set a minimal scrolling speed
+            if (scrollingSpeed < 1)
+            {
+                scrollingSpeed = 1;
+            }
             // Scroll all platforms
             List<Platform> platforms = getObjects(Platform.class);
             for (int i = 0; i < platforms.size(); i++)
             {
-                platforms.get(i).scrollDown(SCROLL_SPEED);
+                platforms.get(i).scrollDown(scrollingSpeed);
             }
             if(Greenfoot.getRandomNumber(100) < 4)
         {
@@ -112,10 +118,10 @@ public class Volcano extends World
         }
             // Scroll the lava downwards
             Lava lava = getObjects(Lava.class).get(0);
-            lava.scrollDown(SCROLL_SPEED);
+            lava.scrollDown(scrollingSpeed);
             
             // Scroll the player
-            player.scrollDown(SCROLL_SPEED);
+            player.scrollDown(scrollingSpeed);
         }
     }
     
@@ -126,32 +132,28 @@ public class Volcano extends World
     private void prepare()
     {
         Platform platform = new Platform();
-        addObject(platform,372,725);
-        Platform platform2 = new Platform();
-        addObject(platform2,472,667);
-        Platform platform3 = new Platform();
-        addObject(platform3,578,602);
-        Platform platform4 = new Platform();
-        addObject(platform4,461,546);
-        Platform platform5 = new Platform();
-        addObject(platform5,346,503);
-        Platform platform6 = new Platform();
-        addObject(platform6,242,449);
-        Platform platform7 = new Platform();
-        addObject(platform7,369,390);
-        Platform platform8 = new Platform();
-        addObject(platform8,493,342);
-        Platform platform9 = new Platform();
-        addObject(platform9,374,284);
-        Platform platform10 = new Platform();
-        addObject(platform10,257,244);
-        Platform platform11 = new Platform();
-        addObject(platform11,394,175);
-        Platform platform12 = new Platform();
-        addObject(platform12,516,113);
-        Platform platform13 = new Platform();
-        addObject(platform13,225,97);
+        addObject(platform,380,740);
         TRex tRex = new TRex();
-        addObject(tRex,365,662);
+        addObject(tRex,377,681);
+        Platform platform2 = new Platform();
+        addObject(platform2,497,690);
+        Platform platform3 = new Platform();
+        addObject(platform3,435,601);
+        Platform platform4 = new Platform();
+        addObject(platform4,281,536);
+        Platform platform5 = new Platform();
+        addObject(platform5,380,448);
+        Platform platform6 = new Platform();
+        addObject(platform6,237,381);
+        Platform platform7 = new Platform();
+        addObject(platform7,505,365);
+        Platform platform8 = new Platform();
+        addObject(platform8,608,292);
+        Platform platform9 = new Platform();
+        addObject(platform9,311,286);
+        Platform platform10 = new Platform();
+        addObject(platform10,183,216);
+        Platform platform11 = new Platform();
+        addObject(platform11,447,194);
     }
 }

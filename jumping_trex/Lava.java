@@ -17,7 +17,7 @@ public class Lava extends Actor
     // Scaling variable
     private static double worldScalingFactor = Volcano.getScalingFactor();
     // Level variable
-    private final int LAVA_LOWER_LIMIT = 350;
+    private final int LAVA_LOWER_LIMIT = 450;
     
     public Lava() {
         // Scale the image to be 1.5x bigger
@@ -67,7 +67,7 @@ public class Lava extends Actor
             frameCounter = 0;
         } else
         {
-            frameCounter++;        
+            frameCounter++; 
         }
         setLavaLevel(getY());
     }
