@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class SplashScreen extends World
 {
-    double timeScreen = System.currentTimeMillis();
+    private double timeScreen;
     /**
      * Constructor for objects of class SplashScreen.
      * 
@@ -19,13 +19,17 @@ public class SplashScreen extends World
         super(1100, 600, 1); 
         prepare();
     }
+    
+    public void started()
+    {
+        timeScreen = System.currentTimeMillis();
+    }
  
     public void act()
     {
-        Background background = new Background();
         if(System.currentTimeMillis() >= (timeScreen + (5 * 1000)))
         {
-            Greenfoot.setWorld(new Volcano());
+            Greenfoot.setWorld(new Volcano(System.currentTimeMillis()));
         }
     }
     

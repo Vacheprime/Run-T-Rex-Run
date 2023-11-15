@@ -64,7 +64,6 @@ public class TRex extends Actor
         
         // Update the physics of the T-Rex
         updatePhysics();
-        
         // Detect collision with lava
         if (detectLavaCollision())
         {
@@ -287,7 +286,6 @@ public class TRex extends Actor
         // Get time step duration
         Volcano world = (Volcano) getWorld();
         double dt = world.getTimeStepDuration();
-        
         // Update the Y velocity
         Vector2D velocityVariation = Vector2D.multiply(acceleration, dt);
         
