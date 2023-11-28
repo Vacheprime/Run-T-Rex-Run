@@ -46,21 +46,21 @@ public class Button extends Actor
     
     public boolean getIsSelected() 
     {
-        return isSelected;
+        return !isSelected;
     }
     
-    public void swapImage()
+    public void selectImage()
     {
-        if (isSelected)
-        {
-            setImage(UNSELECTED_FILE);
-            isSelected = false;
-            setText(text);
-        } else {
-            setImage(SELECTED_FILE);
-            isSelected = true;
-            setText(text);
-        }
+        setImage(SELECTED_FILE);
+        isSelected = true;
+        setText(text);
+    }
+    
+    public void unselectImage()
+    {
+        setImage(UNSELECTED_FILE);
+        isSelected = false;
+        setText(text);
     }
     
     /**

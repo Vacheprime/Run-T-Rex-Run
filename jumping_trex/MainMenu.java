@@ -39,8 +39,9 @@ public class MainMenu extends World
     public void act()
     {
         for (Button btn: buttons) {
-            if (Greenfoot.mouseMoved(btn) && btn.getIsSelected() == false) {
-                btn.swapImage();
+            if (Greenfoot.mouseMoved(btn)) {
+                btn.selectImage();
+                System.out.println("moved");
             }
         }
     }
