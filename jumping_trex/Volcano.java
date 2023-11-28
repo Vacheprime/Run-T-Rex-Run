@@ -112,10 +112,10 @@ public class Volcano extends World
             {
                 platforms.get(i).scrollDown(scrollingSpeed);
             }
-            if(Greenfoot.getRandomNumber(100) < 4)
-        {
+            if(Greenfoot.getRandomNumber(100) < 5)
+            {
             addObject(new Platform(), Greenfoot.getRandomNumber(500) + 130, Greenfoot.getRandomNumber(300));
-        }
+            }
             // Scroll the lava downwards
             Lava lava = getObjects(Lava.class).get(0);
             lava.scrollDown(scrollingSpeed);

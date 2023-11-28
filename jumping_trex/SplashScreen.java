@@ -27,7 +27,7 @@ public class SplashScreen extends World
  
     public void act()
     {
-        if(System.currentTimeMillis() >= (timeScreen + (5 * 1000)))
+        if(System.currentTimeMillis() >= (timeScreen + (2 * 1000)))
         {
             Greenfoot.setWorld(new Volcano(System.currentTimeMillis()));
         }
