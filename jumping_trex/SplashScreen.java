@@ -29,7 +29,7 @@ public class SplashScreen extends World
     {
         if(System.currentTimeMillis() >= (timeScreen + (2 * 1000)))
         {
-            Greenfoot.setWorld(new Volcano(System.currentTimeMillis()));
+            Greenfoot.setWorld(new MainMenu());
         }
     }
     
