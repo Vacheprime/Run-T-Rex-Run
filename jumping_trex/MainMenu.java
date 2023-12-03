@@ -49,19 +49,22 @@ public class MainMenu extends World
             if (Greenfoot.mouseClicked(btn)) {
                 switch (btn.getID()) {
                     // Button play
-                    case 1 -> {
+                    case 1: {
                         Greenfoot.setWorld(new Volcano(System.currentTimeMillis()));
                     }
+                    break;
                     
                     // Button controls
-                    case 2 -> {
+                    case 2: {
                         Greenfoot.setWorld(new ControlsMenu());
                     }
+                    break;
                     
                     // Button sources
-                    case 3 -> {
+                    case 3:  {
                         Greenfoot.setWorld(new SourcesMenu());
                     }
+                    break;
                 }
             }
         }
