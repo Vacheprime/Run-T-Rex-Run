@@ -18,9 +18,9 @@ public class MainMenu extends World
         // Create a new world with height and width cells with a cell size of 1x1 pixels.
         super(1280, 720, 1);
         // Create the buttons
-        Button playGame = new Button(640, 300, "PLAY", 1);
-        Button controls = new Button(640, 450, "CONTROLS", 2);
-        Button sources = new Button(640, 600, "SOURCES", 3);
+        Button playGame = new Button(640, 300, "PLAY", 40, 1);
+        Button controls = new Button(640, 450, "CONTROLS", 40, 2);
+        Button sources = new Button(640, 600, "SOURCES", 40, 3);
         buttons = new Button[3];
         buttons[0] = playGame;
         buttons[1] = controls;
@@ -39,9 +39,30 @@ public class MainMenu extends World
     public void act()
     {
         for (Button btn: buttons) {
+            // Check if mouse if hovering above buttons
             if (Greenfoot.mouseMoved(btn)) {
                 btn.selectImage();
-                System.out.println("moved");
+            } else if (Greenfoot.mouseMoved(null)) {
+                btn.unselectImage();
+            }
+            // Check if player clicked on the button
+            if (Greenfoot.mouseClicked(btn)) {
+                switch (btn.getID()) {
+                    // Button play
+                    case 1 -> {
+                        Greenfoot.setWorld(new Volcano(System.currentTimeMillis()));
+                    }
+                    
+                    // Button controls
+                    case 2 -> {
+                        Greenfoot.setWorld(new ControlsMenu());
+                    }
+                    
+                    // Button sources
+                    case 3 -> {
+                        
+                    }
+                }
             }
         }
     }

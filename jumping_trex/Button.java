@@ -12,26 +12,33 @@ public class Button extends Actor
     private int posY;
     private boolean isSelected = false;
     private int ID;
+    private int fontSize;
     private String text;
-    private final String SELECTED_FILE = "button_unselected.png";
-    private final String UNSELECTED_FILE = "button_selected.png";
+    private final String SELECTED_FILE = "button_selected.png";
+    private final String UNSELECTED_FILE = "button_unselected.png";
     
-    public Button(int x, int y, String txt, int id)
+    public Button(int x, int y, String txt, int txtSize, int id)
     {
         posX = x;
         posY = y;
         ID = id;
         text = txt;
+        fontSize = txtSize;
         setText(text);
     }
     
     private void setText(String txt)
     {
         // Create a text image
-        GreenfootImage txtImg = new GreenfootImage(txt, 40, Color.BLACK, null);
+        GreenfootImage txtImg = new GreenfootImage(txt, fontSize, Color.BLACK, null);
         GreenfootImage currImg = getImage();
         currImg.drawImage(txtImg, (currImg.getWidth() / 2) - txtImg.getWidth() / 2, (currImg.getHeight() / 2) - txtImg.getHeight() / 2);
         setImage(currImg);
+    }
+    
+    public int getID()
+    {
+        return ID;
     }
     
     public int getPosX()
@@ -46,7 +53,7 @@ public class Button extends Actor
     
     public boolean getIsSelected() 
     {
-        return !isSelected;
+        return isSelected;
     }
     
     public void selectImage()
