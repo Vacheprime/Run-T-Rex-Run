@@ -45,14 +45,17 @@ public class TextWindow extends Actor
     
     public void addText(String text, int size, boolean centerText)
     {
+        String[] textsToDraw = text.split("\\n"); 
         GreenfootImage currentImg = getImage();
-        GreenfootImage txtImg = new GreenfootImage(text, size, Color.BLACK, null);
-        if (centerText) {
-            currentImg.drawImage(txtImg, currentImg.getWidth() / 2 - txtImg.getWidth() / 2, nextTextPosition);
-        } else {
-            currentImg.drawImage(txtImg, OFFSET_X, nextTextPosition);
+        for (String txt: textsToDraw) {
+            GreenfootImage txtImg = new GreenfootImage(txt, size, Color.BLACK, null);
+            if (centerText) {
+                currentImg.drawImage(txtImg, currentImg.getWidth() / 2 - txtImg.getWidth() / 2, nextTextPosition);
+            } else {
+                currentImg.drawImage(txtImg, OFFSET_X, nextTextPosition);
+            }
+            nextTextPosition += txtImg.getHeight();
         }
-        nextTextPosition += txtImg.getHeight();
         setImage(currentImg);
     }
     
