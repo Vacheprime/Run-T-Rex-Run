@@ -60,7 +60,7 @@ public class MainMenu extends World
                     
                     // Button sources
                     case 3 -> {
-                        
+                        Greenfoot.setWorld(new SourcesMenu());
                     }
                 }
             }
