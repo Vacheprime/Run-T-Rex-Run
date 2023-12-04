@@ -27,7 +27,7 @@ public class TRex extends Actor
     // Gravity and max falling speed variables
     private static final double GRAVITY = 9.9 * 100; // 100 px = 1 m
     private static final int MAX_Y_VEL = 450;
-    
+    private static GreenfootSound music1 = new GreenfootSound("battle.mp3");
     public TRex()
     {
         // Scale the T-Rex to 1/4 of its original size
@@ -55,7 +55,7 @@ public class TRex extends Actor
         // Set the initial position and last frame position to the current
         // X and Y when added to the world
         this.position = new Point2D(getX(), getY());
-        
+        startMusic();
     }
     
     /**
@@ -75,6 +75,7 @@ public class TRex extends Actor
             World world = getWorld();
             world.removeObject(this);
             changeWorld(new GameOverWorld(world.getObjects(Score.class).get(0).getScore()));
+            stopMusic();
         }
     }
     
@@ -318,5 +319,14 @@ public class TRex extends Actor
     private void changeWorld(World world)
     {
         Greenfoot.setWorld(world);
+    }
+    
+    public void startMusic()
+    {
+        music1.playLoop();
+    }
+    public void stopMusic()
+    {
+        music1.stop();
     }
 }

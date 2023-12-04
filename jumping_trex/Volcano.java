@@ -18,7 +18,6 @@ public class Volcano extends World
     // Time step variables
     private long lastFrameTimeMS;
     private double timeStepDuration; 
-    
     /**
      * Constructor for objects of class volcano.
      * 
@@ -67,6 +66,8 @@ public class Volcano extends World
     
     public void act()
     {
+       
+
         // Update the time step duration
         updateTimeStep();
         
@@ -112,7 +113,7 @@ public class Volcano extends World
             {
                 platforms.get(i).scrollDown(scrollingSpeed);
             }
-            if(Greenfoot.getRandomNumber(100) < 5)
+            if(Greenfoot.getRandomNumber(100) < 10)
             {
             addObject(new Platform(), Greenfoot.getRandomNumber(500) + 130, Greenfoot.getRandomNumber(300));
             }
@@ -125,12 +126,14 @@ public class Volcano extends World
         }
     }
     
+    
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
      */
     private void prepare()
     {
+        
         Platform platform = new Platform();
         addObject(platform,380,740);
         TRex tRex = new TRex();

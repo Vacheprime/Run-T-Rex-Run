@@ -19,6 +19,7 @@ public class GameOverWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(750, 900, 1, false);
         startMusic();
+        
         // Scale the background to 1.5 times its size
         
         GreenfootImage img = getBackground();
@@ -33,14 +34,14 @@ public class GameOverWorld extends World
     
     public void startMusic()
     {
-        System.out.println("test");
         music.playLoop();
     }
     public void stopMusic()
     {
-        System.out.println("stopped");
         music.stop();
     }
+   
+    
     
     public void act()
     {
