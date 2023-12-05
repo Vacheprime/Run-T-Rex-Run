@@ -28,6 +28,11 @@ public class TRex extends Actor
     private static final double GRAVITY = 9.9 * 100; // 100 px = 1 m
     private static final int MAX_Y_VEL = 450;
     private static GreenfootSound music1 = new GreenfootSound("battle.mp3");
+    
+    // Power up vars
+    private boolean isInvincible = false;
+    private Powerup[] allPowerups = new Powerup[3];
+    
     public TRex()
     {
         // Scale the T-Rex to 1/4 of its original size
@@ -66,9 +71,12 @@ public class TRex extends Actor
     {
         // Execute the movements
         moveTRex();
-        
         // Update the physics of the T-Rex
         updatePhysics();
+        // Collect powerups
+        collectPowerups();
+        // Manage powerups
+        managePowerups();
         // Detect collision with lava
         if (detectLavaCollision())
         {
@@ -77,6 +85,11 @@ public class TRex extends Actor
             changeWorld(new GameOverWorld(world.getObjects(Score.class).get(0).getScore()));
             stopMusic();
         }
+    }
+    
+    public void setIsInvincible(boolean inv)
+    {
+        isInvincible = inv;
     }
     
     private void moveTRex()
@@ -270,7 +283,13 @@ public class TRex extends Actor
         
         if (playerUpperBound >= currentLavaLevel && currentLavaLevel != -1)
         {
-            return true;
+            if (isInvincible) {
+                // Bounce back up
+                velocity.setY(-1000);
+                return false;
+            } else {
+                return true;
+            }
         } else
         {
             return false;
@@ -319,6 +338,54 @@ public class TRex extends Actor
     private void changeWorld(World world)
     {
         Greenfoot.setWorld(world);
+    }
+    
+    private void collectPowerups()
+    {
+        Powerup powerup = (Powerup) getOneIntersectingObject(Powerup.class);
+        if (powerup != null)
+        {
+            // Remove the powerup from the world
+            getWorld().removeObject(powerup);
+            // Add it to the powerups to track
+            if (allPowerups[powerup.getID()] != null)
+            {
+                allPowerups[powerup.getID()].removeAura(this);
+            }
+            allPowerups[powerup.getID()] = powerup;
+            // Activate it on the T-Rex
+            switch (powerup.getID())
+            {
+                case 0:
+                {
+                    Shield shield = (Shield) powerup;
+                    shield.activate(this);
+                }
+            }
+        }
+    }
+    
+    private void managePowerups()
+    {
+        for (Powerup powerup: allPowerups)
+        {
+            if (powerup != null) {
+                switch (powerup.getID())
+                {
+                    // Shield
+                    case 0:
+                    {
+                        Shield shield = (Shield) powerup;
+                        if (shield.isOver()) {
+                            shield.deactivate(this);
+                            allPowerups[0] = null;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        
     }
     
     public void startMusic()

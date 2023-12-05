@@ -15,9 +15,12 @@ public class Volcano extends World
     // Scrolling variables
     private boolean isScrolling = false;
     private final int scrollLine = 2;
+    
     // Time step variables
     private long lastFrameTimeMS;
-    private double timeStepDuration; 
+    private double timeStepDuration;
+    
+    private static int borderWidth = (int) (50 * scalingFactor);
     /**
      * Constructor for objects of class volcano.
      * 
@@ -46,9 +49,7 @@ public class Volcano extends World
         addObject(lava, getWidth() / 2, getHeight() + lava.getLavaLowerLimit());
         
         // Draw the actors in the right order
-        setPaintOrder(Score.class, Lava.class, TRex.class, Platform.class, Background.class);
-        
-        
+        setPaintOrder(Score.class, Aura.class, Lava.class,TRex.class, Powerup.class, Platform.class, Background.class);
         
         // Populate the volcano
         prepare();
@@ -66,14 +67,14 @@ public class Volcano extends World
     
     public void act()
     {
-       
-
         // Update the time step duration
         updateTimeStep();
         
         // Scroll the screen
         scrollScreen();
         
+        // Generate powerups
+        generatePowerups();
     }
     
     private void updateTimeStep()
@@ -83,6 +84,17 @@ public class Volcano extends World
         
         // Set the last frame time
         lastFrameTimeMS = System.currentTimeMillis();
+    }
+    
+    private void generatePowerups()
+    {
+        int randomNumber = Greenfoot.getRandomNumber(500);
+        // Create a shield
+        if (randomNumber < 1)
+        {
+            Shield shield = new Shield();
+            addObject(shield, Greenfoot.getRandomNumber(750 - 2 * borderWidth) + borderWidth, 0);
+        }
     }
  
     private void scrollScreen()
@@ -113,9 +125,16 @@ public class Volcano extends World
             {
                 platforms.get(i).scrollDown(scrollingSpeed);
             }
+            // Scroll all powerups
+            List<Powerup> powerups = getObjects(Powerup.class);
+            for (int i = 0; i < powerups.size(); i++)
+            {
+                powerups.get(i).scrollDown(scrollingSpeed);
+            }
+            
             if(Greenfoot.getRandomNumber(100) < 10)
             {
-            addObject(new Platform(), Greenfoot.getRandomNumber(500) + 130, Greenfoot.getRandomNumber(300));
+                addObject(new Platform(), Greenfoot.getRandomNumber(500) + 130, Greenfoot.getRandomNumber(300));
             }
             // Scroll the lava downwards
             Lava lava = getObjects(Lava.class).get(0);
