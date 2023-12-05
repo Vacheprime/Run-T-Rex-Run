@@ -92,6 +92,11 @@ public class TRex extends Actor
         isInvincible = inv;
     }
     
+    public void setJumpVelocity(int vel)
+    {
+        jumpVelocity.setY(-vel);
+    }
+    
     private void moveTRex()
     {
         // When key d or right arrow is pressed
@@ -369,6 +374,13 @@ public class TRex extends Actor
                     scoreMult.activate(this);
                     break;
                 }
+                
+                case 2:
+                {
+                    Meat meat = (Meat) powerup;
+                    meat.activate(this);
+                    break;
+                }
             }
         }
     }
@@ -397,6 +409,16 @@ public class TRex extends Actor
                         if (scoreMult.isOver()) {
                             scoreMult.deactivate(this);
                             allPowerups[1] = null;
+                        }
+                        break;
+                    }
+                    
+                    case 2:
+                    {
+                        Meat meat = (Meat) powerup;
+                        if (meat.isOver()) {
+                            meat.deactivate(this);
+                            allPowerups[2] = null;
                         }
                         break;
                     }

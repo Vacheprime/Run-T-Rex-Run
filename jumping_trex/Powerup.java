@@ -51,9 +51,9 @@ public class Powerup extends Actor
         setLocation(getX(), getY() + speed);
     }
     
-    public void addAura(TRex player, Color col)
+    public void addAura(TRex player, Color col, int width, int height, int borderSize)
     {
-        powerupAura = new Aura(col, player.getImage().getWidth(), player.getImage().getHeight(), player);
+        powerupAura = new Aura(col, width, height, player, borderSize);
         player.getWorld().addObject(powerupAura, player.getX(), player.getY());
     }
     

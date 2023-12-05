@@ -1,36 +1,33 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Shield here.
+ * Write a description of class Meat here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Shield extends Powerup
+public class Meat extends Powerup
 {
-    private static double scalingFactor = 0.25;
+    private static double scalingFactor = 1.5;
     
-    public Shield()
+    public Meat()
     {
-        // Duration of the powerup
-        super(10000, 0);
-        
+        super(10000, 2);
         GreenfootImage img = getImage();
         img.scale((int) (img.getWidth() * scalingFactor), (int) (img.getHeight() * scalingFactor));
         setImage(img);
     }
-    
+
     public void activate(TRex player)
     {
         super.start();
-        addAura(player, Color.BLUE, player.getImage().getHeight(), player.getImage().getHeight(), 3);
-        player.setIsInvincible(true);
+        addAura(player, Color.RED, player.getImage().getHeight() + 20, player.getImage().getHeight() + 20, 3);
+        player.setJumpVelocity(900);
     }
     
     public void deactivate(TRex player)
     {
-        player.setIsInvincible(false);
         removeAura(player);
+        player.setJumpVelocity(600);
     }
-    
 }

@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Meat
+comment0.text=\n\ Write\ a\ description\ of\ class\ Meat\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=
+comment1.target=Meat()
+comment2.params=player
+comment2.target=void\ activate(TRex)
+comment3.params=player
+comment3.target=void\ deactivate(TRex)
+numComments=4

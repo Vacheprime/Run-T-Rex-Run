@@ -10,12 +10,16 @@ public class Aura extends Actor
 {
     private Actor actorToFollow;
     
-    public Aura(Color col, int width, int height, Actor toFollow)
+    public Aura(Color col, int width, int height, Actor toFollow, int borderSize)
     {
         actorToFollow = toFollow;
         GreenfootImage img = new GreenfootImage(width, height);
         img.setColor(col);
-        img.drawOval(0, 0, width, height);
+        for (int i = 0; i < borderSize; i++)
+        {
+            img.drawOval(0 + i, 0, width - borderSize - 1, height - 1);
+            img.drawOval(0, 0 + i, width - 1, height - borderSize - 1);
+        }
         setImage(img);
     }
     

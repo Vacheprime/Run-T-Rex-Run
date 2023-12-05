@@ -21,7 +21,7 @@ public class ScoreMultiplier extends Powerup
     public void activate(TRex player)
     {
         super.start();
-        addAura(player, Color.YELLOW);
+        addAura(player, Color.YELLOW, player.getImage().getHeight() + 10, player.getImage().getHeight() + 10, 3);
         player.getWorld().getObjects(Score.class).get(0).setPointAtMS(1000 / 20);
     }
     

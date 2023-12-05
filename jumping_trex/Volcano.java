@@ -88,7 +88,7 @@ public class Volcano extends World
     
     private void generatePowerups()
     {
-        int randomNumber = Greenfoot.getRandomNumber(500);
+        int randomNumber = Greenfoot.getRandomNumber(1000);
         // Create a shield
         if (randomNumber < 1)
         {
@@ -98,6 +98,9 @@ public class Volcano extends World
         {
             ScoreMultiplier scoreMult = new ScoreMultiplier();
             addObject(scoreMult, Greenfoot.getRandomNumber(750 - 2 * borderWidth) + borderWidth, 0);
+        } else if (randomNumber < 10) {
+            Meat meat = new Meat();
+            addObject(meat, Greenfoot.getRandomNumber(750 - 2 * borderWidth) + borderWidth, 0);
         }
     }
  
