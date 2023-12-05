@@ -285,7 +285,7 @@ public class TRex extends Actor
         {
             if (isInvincible) {
                 // Bounce back up
-                velocity.setY(-1000);
+                velocity.setY(-2000);
                 return false;
             } else {
                 return true;
@@ -360,6 +360,14 @@ public class TRex extends Actor
                 {
                     Shield shield = (Shield) powerup;
                     shield.activate(this);
+                    break;
+                }
+                
+                case 1:
+                {
+                    ScoreMultiplier scoreMult = (ScoreMultiplier) powerup;
+                    scoreMult.activate(this);
+                    break;
                 }
             }
         }
@@ -379,6 +387,16 @@ public class TRex extends Actor
                         if (shield.isOver()) {
                             shield.deactivate(this);
                             allPowerups[0] = null;
+                        }
+                        break;
+                    }
+                    
+                    case 1:
+                    {
+                        ScoreMultiplier scoreMult = (ScoreMultiplier) powerup;
+                        if (scoreMult.isOver()) {
+                            scoreMult.deactivate(this);
+                            allPowerups[1] = null;
                         }
                         break;
                     }

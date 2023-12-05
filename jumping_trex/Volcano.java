@@ -94,6 +94,10 @@ public class Volcano extends World
         {
             Shield shield = new Shield();
             addObject(shield, Greenfoot.getRandomNumber(750 - 2 * borderWidth) + borderWidth, 0);
+        } else if (randomNumber < 5) 
+        {
+            ScoreMultiplier scoreMult = new ScoreMultiplier();
+            addObject(scoreMult, Greenfoot.getRandomNumber(750 - 2 * borderWidth) + borderWidth, 0);
         }
     }
  

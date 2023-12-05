@@ -11,7 +11,7 @@ public class Score extends Actor
     private int score;
     private int timeToPoint;
     private long lastTimeStep;
-    private final double pointAtMS = 1000 / 10; // Points / Milliseconds
+    private  double pointAtMS = 1000 / 10; // Milliseconds / points
     private GreenfootImage img;
     private Volcano volcanoWorld;
     
@@ -22,6 +22,11 @@ public class Score extends Actor
         this.lastTimeStep = lastTimeStep;
         this.img = null;
         this.volcanoWorld = null;
+    }
+    
+    public void setPointAtMS(double pAtMs)
+    {
+        pointAtMS = pAtMs;
     }
     
     public int getScore()
