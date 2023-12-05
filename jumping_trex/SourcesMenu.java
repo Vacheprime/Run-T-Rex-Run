@@ -28,6 +28,7 @@ public class SourcesMenu extends World
         sourcesList.addText("Audio", 40, true);
         sourcesList.addText("Game over music: \"What is Left\" by SeKa (opengameart.org)", 20, false);
         sourcesList.addText("Gameplay music: \"The Perilous Journey: Imaginary Music From\n A Fantasy Video Game\" by Peter Eastman (opengameart.org)", 20, false);
+        sourcesList.addText("Powerup sound effect: \"8-Bit Powerup\", unknown (pixabay.com)", 20, false);
         // Image sources
         sourcesList.addText("Images", 40, true);
         sourcesList.addText("T-Rex: mostafaelturkey97 (pixabay.com)", 20, false);

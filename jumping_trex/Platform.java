@@ -18,10 +18,9 @@ public class Platform extends Actor
     
     public void act()
     {
-        // Add your action code here.
-        while(isTouching(Platform.class))
+        if (getY() - getImage().getHeight() > getWorld().getHeight())
         {
-         setLocation(Greenfoot.getRandomNumber(500) + 130,Greenfoot.getRandomNumber(250));
+            getWorld().removeObject(this);
         }
     }
 

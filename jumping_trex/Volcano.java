@@ -75,6 +75,9 @@ public class Volcano extends World
         
         // Generate powerups
         generatePowerups();
+        
+        // Generate platforms
+        generatePlatforms();
     }
     
     private void updateTimeStep()
@@ -86,9 +89,50 @@ public class Volcano extends World
         lastFrameTimeMS = System.currentTimeMillis();
     }
     
+    private void generatePlatforms()
+    {
+        // Get the last platform spawned
+        List<Platform> platforms = getObjects(Platform.class);
+        Platform previousPlatform = platforms.get(platforms.size() - 1);
+        int positionX = previousPlatform.getX();
+        int positionY = previousPlatform.getY();
+        //System.out.println(positionY);
+        int minDistanceX = 70;
+        int minDistanceY = 50;
+        int rangeX = 150;
+        int rangeY = 90;
+        //System.out.println(positionX + " " + positionY);
+        if (positionY > -100) {
+            int x = 0;
+            int side = Greenfoot.getRandomNumber(2) + 1;
+            // Right side
+            if (side == 1) {
+                // Check if it is possible to spawn on the right
+                if (positionX + rangeX < getWidth() - borderWidth) {
+                    x = positionX + (Greenfoot.getRandomNumber(rangeX - minDistanceX) + minDistanceX);
+                // If not, spawn on the left
+                } else {
+                    x = positionX - (Greenfoot.getRandomNumber(rangeX - minDistanceX) +  minDistanceX);
+                }
+            // Left side
+            } else {
+                // Check if it is possible to spawn on the left
+                if (positionX - rangeX > borderWidth) {
+                    x = positionX - (Greenfoot.getRandomNumber(rangeX - minDistanceX) +  minDistanceX);
+                // If not, spawn on the right
+                } else {
+                    x = positionX + (Greenfoot.getRandomNumber(rangeX - minDistanceX) + minDistanceX);
+                }
+            }
+            
+            int y = positionY - (Greenfoot.getRandomNumber(rangeY - minDistanceY) + minDistanceY);
+            addObject(new Platform(), x, y);
+        }
+    }
+    
     private void generatePowerups()
     {
-        int randomNumber = Greenfoot.getRandomNumber(1000);
+        int randomNumber = Greenfoot.getRandomNumber(10000);
         // Create a shield
         if (randomNumber < 1)
         {
@@ -138,11 +182,6 @@ public class Volcano extends World
             {
                 powerups.get(i).scrollDown(scrollingSpeed);
             }
-            
-            if(Greenfoot.getRandomNumber(100) < 10)
-            {
-                addObject(new Platform(), Greenfoot.getRandomNumber(500) + 130, Greenfoot.getRandomNumber(300));
-            }
             // Scroll the lava downwards
             Lava lava = getObjects(Lava.class).get(0);
             lava.scrollDown(scrollingSpeed);
@@ -159,30 +198,9 @@ public class Volcano extends World
      */
     private void prepare()
     {
-        
-        Platform platform = new Platform();
-        addObject(platform,380,740);
         TRex tRex = new TRex();
         addObject(tRex,377,681);
-        Platform platform2 = new Platform();
-        addObject(platform2,497,690);
-        Platform platform3 = new Platform();
-        addObject(platform3,435,601);
-        Platform platform4 = new Platform();
-        addObject(platform4,281,536);
-        Platform platform5 = new Platform();
-        addObject(platform5,380,448);
-        Platform platform6 = new Platform();
-        addObject(platform6,237,381);
-        Platform platform7 = new Platform();
-        addObject(platform7,505,365);
-        Platform platform8 = new Platform();
-        addObject(platform8,608,292);
-        Platform platform9 = new Platform();
-        addObject(platform9,311,286);
-        Platform platform10 = new Platform();
-        addObject(platform10,183,216);
-        Platform platform11 = new Platform();
-        addObject(platform11,447,194);
+        Platform platform = new Platform();
+        addObject(platform,380,760);
     }
 }

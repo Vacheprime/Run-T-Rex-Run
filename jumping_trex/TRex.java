@@ -80,6 +80,8 @@ public class TRex extends Actor
         // Detect collision with lava
         if (detectLavaCollision())
         {
+            // Stop music
+            stopMusic();
             World world = getWorld();
             world.removeObject(this);
             changeWorld(new GameOverWorld(world.getObjects(Score.class).get(0).getScore()));
@@ -350,6 +352,8 @@ public class TRex extends Actor
         Powerup powerup = (Powerup) getOneIntersectingObject(Powerup.class);
         if (powerup != null)
         {
+            // Play sound effect
+            Greenfoot.playSound("powerup.mp3");
             // Remove the powerup from the world
             getWorld().removeObject(powerup);
             // Add it to the powerups to track

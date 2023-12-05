@@ -28,6 +28,6 @@ public class ScoreMultiplier extends Powerup
     public void deactivate(TRex player)
     {
         removeAura(player);
-        player.getWorld().getObjects(Score.class).get(0).setPointAtMS(1000 / 20);
+        player.getWorld().getObjects(Score.class).get(0).setPointAtMS(1000 / 10);
     }
 }

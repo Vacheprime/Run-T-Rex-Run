@@ -22,7 +22,7 @@ public class Meat extends Powerup
     {
         super.start();
         addAura(player, Color.RED, player.getImage().getHeight() + 20, player.getImage().getHeight() + 20, 3);
-        player.setJumpVelocity(900);
+        player.setJumpVelocity(800);
     }
     
     public void deactivate(TRex player)
