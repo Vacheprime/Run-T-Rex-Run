@@ -58,7 +58,7 @@ public class Lava extends Actor
      */
     public void act()
     {
-        if (frameCounter == riseAtFrame)
+        if (frameCounter >= riseAtFrame)
         {   
             if (!(isScrolling && getY() == getWorld().getHeight() + LAVA_LOWER_LIMIT))
             {

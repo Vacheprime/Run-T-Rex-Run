@@ -21,7 +21,7 @@ public class TRex extends Actor
     private static double scalingFactor = 0.25;
     private static double worldScalingFactor = Volcano.getScalingFactor();
     private char facing = 'r';
-    private int runVelocity = 200;
+    private int runVelocity = 125;
     private Vector2D jumpVelocity = new Vector2D(0, -600);
     
     // Gravity and max falling speed variables

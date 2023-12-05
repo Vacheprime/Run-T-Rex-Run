@@ -78,6 +78,9 @@ public class Volcano extends World
         
         // Generate platforms
         generatePlatforms();
+        
+        // Increase difficulty
+        increaseDifficulty();
     }
     
     private void updateTimeStep()
@@ -87,6 +90,18 @@ public class Volcano extends World
         
         // Set the last frame time
         lastFrameTimeMS = System.currentTimeMillis();
+    }
+    
+    private void increaseDifficulty()
+    {
+        Score score = getObjects(Score.class).get(0);
+        if (score.getScore() >= 500) {
+            Lava lava = getObjects(Lava.class).get(0);
+            lava.setRisingFrequency(1);
+        } else if (score.getScore() >= 200) {
+            Lava lava = getObjects(Lava.class).get(0);
+            lava.setRisingFrequency(2);
+        }
     }
     
     private void generatePlatforms()
